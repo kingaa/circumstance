@@ -1,0 +1,60 @@
+
+R version 3.5.1 (2018-07-02) -- "Feather Spray"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> options(digits=3)
+> 
+> set.seed(789744859)
+> 
+> library(pompsi)
+Loading required package: pomp2
+Welcome to pomp version 2!
+For information on upgrading your pomp version < 2 code, see the
+‘pomp version 2 upgrade guide’ at https://kingaa.github.io/pomp/.
+Loading required package: foreach
+
+Attaching package: ‘pompsi’
+
+The following object is masked from ‘package:pomp2’:
+
+    pfilter
+
+> library(doParallel)
+Loading required package: iterators
+Loading required package: parallel
+> library(doRNG)
+Loading required package: rngtools
+Loading required package: pkgmaker
+Loading required package: registry
+
+Attaching package: ‘pkgmaker’
+
+The following object is masked from ‘package:base’:
+
+    isFALSE
+
+> 
+> registerDoParallel()
+> registerDoRNG(789744859)
+> 
+> ou2() -> ou2
+> pfilter(ou2,Np=1000,Nrep=10) -> pfs
+> logmeanexp(logLik(pfs),se=TRUE)
+               se 
+-476.722    0.261 
+> 
