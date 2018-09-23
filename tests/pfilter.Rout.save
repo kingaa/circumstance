@@ -58,3 +58,5 @@ The following object is masked from ‘package:base’:
                se 
 -476.722    0.261 
 > 
+> registerDoSEQ()
+> 

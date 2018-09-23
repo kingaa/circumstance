@@ -56,6 +56,11 @@ dist: NEWS $(PKGVERS).tar.gz
 $(PKGVERS).tar.gz: $(SOURCE)
 	$(RCMD) build --force --no-manual --resave-data --compact-vignettes=both --md5 .
 
+binary: dist
+	mkdir -p plib
+	$(RCMD) INSTALL --build --library=plib --preclean --clean $(PKGVERS).tar.gz
+	rm -rf plib
+
 publish: dist manual news
 	$(RSCRIPT) -e 'drat::insertPackage("$(PKGVERS).tar.gz",repodir="../www",action="prune")'
 	-$(RSCRIPT) -e 'drat::insertPackage("$(PKGVERS).tgz",repodir="../www",action="prune")'
@@ -154,7 +159,7 @@ clean:
 	$(RM) -r check library
 	$(RM) src/*.o src/*.so src/symbols.rds vignettes/Rplots.*
 	$(RM) -r inst/doc/figure inst/doc/cache
-	$(RM) $(PKGVERS).tar.gz $(PKGVERS).zip $(PKGVERS).tgz $(PKG).pdf
+	$(RM) *.tar.gz $(PKGVERS).zip $(PKGVERS).tgz $(PKG).pdf
 
 .SECONDARY:
 

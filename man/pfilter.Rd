@@ -3,25 +3,38 @@
 \docType{methods}
 \name{pfilter}
 \alias{pfilter}
-\alias{pfilter,pomp,numeric-method}
+\alias{pfilter,numeric-method}
 \title{Parallel particle filter computations}
 \usage{
-\S4method{pfilter}{pomp,numeric}(data, Nrep, ...)
+\S4method{pfilter}{numeric}(Nrep, ...)
 }
 \arguments{
-\item{data}{either a data frame holding the time series data,
-or an object of class \sQuote{pomp},
-i.e., the output of another \pkg{pomp} calculation.}
-
 \item{Nrep}{number of replicate particle filter computations to run.}
 
-\item{...}{additional arguments supply new or modify existing model characteristics or components.
-See \code{\link{pomp}} for a full list of recognized arguments.
-
-When named arguments not recognized by \code{\link{pomp}} are provided, these are made available to all basic components via the so-called \dfn{userdata} facility.
-This allows the user to pass information to the basic components outside of the usual routes of covariates (\code{covar}) and model parameters (\code{params}).
-See the \link[=userdata]{userdata documentation here} for information on how to use this facility.}
+\item{...}{all additional arguments are passed to \code{pomp2::\link[pomp2]{pfilter}}}
 }
 \description{
 Runs multiple instances of \code{pfilter} using \code{foreach}.
+}
+\examples{
+options(digits=3)
+
+set.seed(789744859)
+
+library(pompsi)
+library(doParallel)
+library(doRNG)
+
+registerDoParallel()
+registerDoRNG(789744859)
+
+ou2() -> ou2
+pfilter(ou2,Np=1000,Nrep=10) -> pfs
+logmeanexp(logLik(pfs),se=TRUE)
+
+registerDoSEQ()
+
+}
+\seealso{
+\code{pomp2::\link[pomp2]{pfilter}}.
 }
