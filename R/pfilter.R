@@ -6,7 +6,7 @@
 ##' @rdname pfilter
 ##' @importFrom pomp2 pfilter
 ##' @importFrom foreach foreach %dopar%
-##' @include pompsi-package.R
+##' @include circumstance-package.R
 ##'
 ##' @param Nrep number of replicate particle filter computations to run.
 ##' @param ... all additional arguments are passed to \code{pomp2::\link[pomp2]{pfilter}}

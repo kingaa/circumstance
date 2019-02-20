@@ -1,5 +1,5 @@
 
-R version 3.5.1 (2018-07-02) -- "Feather Spray"
+R version 3.5.2 (2018-12-20) -- "Eggshell Igloo"
 Copyright (C) 2018 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -21,14 +21,14 @@ Type 'q()' to quit R.
 > 
 > set.seed(789744859)
 > 
-> library(pompsi)
+> library(circumstance)
 Loading required package: pomp2
 Welcome to pomp version 2!
 For information on upgrading your pomp version < 2 code, see the
 ‘pomp version 2 upgrade guide’ at https://kingaa.github.io/pomp/.
 Loading required package: foreach
 
-Attaching package: ‘pompsi’
+Attaching package: ‘circumstance’
 
 The following object is masked from ‘package:pomp2’:
 

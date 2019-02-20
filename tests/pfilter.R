@@ -2,7 +2,7 @@ options(digits=3)
 
 set.seed(789744859)
 
-library(pompsi)
+library(circumstance)
 library(doParallel)
 library(doRNG)
 
