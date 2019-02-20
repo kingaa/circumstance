@@ -7,7 +7,9 @@
 [![Development Release](https://img.shields.io/github/release/kingaa/circumstance.svg)](https://github.com/kingaa/circumstance/)
 [![CRAN Status](https://www.r-pkg.org/badges/version/circumstance)](https://cran.r-project.org/package=circumstance)
 
-[comment]: # [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/circumstance)](https://www.r-pkg.org/pkg/circumstance/)
+<!---
+[![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/circumstance)](https://www.r-pkg.org/pkg/circumstance/)
+-->
 
 
 For installation instructions and user guides, see [the package website](https://kingaa.github.io/circumstance/).
