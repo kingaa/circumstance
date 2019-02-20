@@ -12,8 +12,8 @@ Depends: R(>= 3.5.0), methods, pomp2, foreach
 Suggests: doParallel, doRNG
 License: GPL-3
 LazyData: true
-Contact: kingaa at umich dot edu
 BugReports: https://github.com/kingaa/circumstance/issues/
+Contact: kingaa at umich dot edu
 Encoding: UTF-8
 RoxygenNote: 6.1.1
 Collate: 
