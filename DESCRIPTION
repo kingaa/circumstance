@@ -10,6 +10,7 @@ Authors@R: c(person(given=c("Aaron","A."),family="King",
 URL: https://kingaa.github.io/circumstance/
 Depends: R(>= 3.5.0), methods, pomp2, foreach
 Suggests: doParallel, doRNG
+Remotes: kingaa/pomp
 License: GPL-3
 LazyData: true
 BugReports: https://github.com/kingaa/circumstance/issues/
