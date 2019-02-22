@@ -1,6 +1,6 @@
 ## **circumstance**
 
-### a helper package for **pomp**
+### a helper package for [**pomp**](https://kingaa.github.io/pomp/)
 
 [![Build Status](https://travis-ci.org/kingaa/circumstance.svg?branch=master)](https://travis-ci.org/kingaa/circumstance/)
 [![codecov](https://codecov.io/gh/kingaa/circumstance/branch/master/graph/badge.svg)](https://codecov.io/gh/kingaa/circumstance/)
