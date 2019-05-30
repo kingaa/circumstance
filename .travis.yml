@@ -29,7 +29,7 @@ jobs:
     os: linux
   - r: devel
     os: linux
-  - r: 3.5.0
+  - r: 3.6.0
     os: linux
   - r: release
     os: osx
