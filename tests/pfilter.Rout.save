@@ -1,6 +1,6 @@
 
-R version 3.5.2 (2018-12-20) -- "Eggshell Igloo"
-Copyright (C) 2018 The R Foundation for Statistical Computing
+R version 3.6.3 (2020-02-29) -- "Holding the Windsock"
+Copyright (C) 2020 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -22,15 +22,22 @@ Type 'q()' to quit R.
 > set.seed(789744859)
 > 
 > library(circumstance)
-Loading required package: pomp2
-Welcome to pomp version 2!
-For information on upgrading your pomp version < 2 code, see the
-‘pomp version 2 upgrade guide’ at https://kingaa.github.io/pomp/.
 Loading required package: foreach
+Loading required package: pomp
+Welcome to pomp!
+As of version 2.7.1.0, important changes have been made to the
+default settings of the particle filtering algorithms in
+‘pfilter’, ‘mif2’, ‘pmcmc’, ‘bsmc2’.
+These changes are not backward compatible.
+See the package NEWS for the details.
+
+For information on upgrading your pomp version < 2 code, see the
+“pomp version 2 upgrade guide” at https://kingaa.github.io/pomp/.
+
 
 Attaching package: ‘circumstance’
 
-The following object is masked from ‘package:pomp2’:
+The following object is masked from ‘package:pomp’:
 
     pfilter
 
@@ -39,15 +46,6 @@ Loading required package: iterators
 Loading required package: parallel
 > library(doRNG)
 Loading required package: rngtools
-Loading required package: pkgmaker
-Loading required package: registry
-
-Attaching package: ‘pkgmaker’
-
-The following object is masked from ‘package:base’:
-
-    isFALSE
-
 > 
 > registerDoParallel()
 > registerDoRNG(789744859)

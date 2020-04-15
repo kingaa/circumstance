@@ -15,7 +15,10 @@ INSTALL = install
 PKG = $(shell perl -ne 'print $$1 if /Package:\s+((\w+[-\.]?)+)/;' DESCRIPTION)
 VERSION = $(shell perl -ne 'print $$1 if /Version:\s+((\d+[-\.]?)+)/;' DESCRIPTION)
 PKGVERS = $(PKG)_$(VERSION)
-SOURCE=$(shell ls R/*R src/*.c src/*.h data/* tests/*R)
+SOURCE=$(shell ls R/*R src/*.c src/*.h data/*)
+CSOURCE=$(shell ls src/*.c)
+TESTS=$(shell ls tests/*R)
+REVDEPS=
 
 default:
 	@echo $(PKGVERS)
@@ -23,16 +26,16 @@ default:
 .PHONY: clean win wind tests check
 
 dist manual vignettes: export R_QPDF=qpdf
-dist manual vignettes: export R_GSCMD=gs
-dist manual vignettes: export GS_QUALITY=ebook
-dist manual vignettes: export R_HOME=$(shell $(REXE) RHOME)
+headers: export LC_COLLATE=C
+roxy headers dist manual vignettes: export R_HOME=$(shell $(REXE) RHOME)
 check xcheck xxcheck: export FULL_TESTS=yes
-xcheck tests: export R_PROFILE_USER=$(CURDIR)/.Rprofile
-session htmldocs vignettes data tests manual: export R_LIBS=$(CURDIR)/library
+revdeps xcheck tests: export R_PROFILE_USER=$(CURDIR)/.Rprofile
+revdeps session xxcheck htmldocs vignettes data tests manual: export R_LIBS=$(CURDIR)/library
 session: export R_DEFAULT_PACKAGES=datasets,utils,grDevices,graphics,stats,methods,circumstance,tidyverse
-xxcheck: export R_LIBS=$(CURDIR)/check
 
 includes:
+
+headers:
 
 inst/include/%.h: src/%.h
 	$(CP) $^ $@
@@ -55,13 +58,17 @@ www/NEWS.html: inst/NEWS.Rd
 session: install
 	exec $(REXE)
 
-roxy: $(SOURCE)
-##	$(REXE) -e "pkgload::load_all(compile=FALSE); devtools::document(roclets=c('rd','collate','namespace'))"
+revdeps: install
+	mkdir -p library check
+	$(REXE) -e "pkgs <- strsplit('$(REVDEPS)',' ')[[1]]; download.packages(pkgs,destdir='library',repos='https://mirrors.nics.utk.edu/cran/')"
+	$(RCMD) check --library=library -o check library/*.tar.gz
+
+roxy: $(SOURCE) headers
 	$(REXE) -e "pkgbuild::compile_dll(); devtools::document(roclets=c('rd','collate','namespace'))"
 
 dist: NEWS $(PKGVERS).tar.gz
 
-$(PKGVERS).tar.gz: $(SOURCE) includes
+$(PKGVERS).tar.gz: $(SOURCE) $(TESTS) includes headers
 	$(RCMD) build --force --no-manual --resave-data --compact-vignettes=both --md5 .
 
 binary: dist
@@ -71,7 +78,7 @@ binary: dist
 
 publish: dist manual news
 	$(RSCRIPT) -e 'drat::insertPackage("$(PKGVERS).tar.gz",repodir="../www",action="prune")'
-	-$(RSCRIPT) -e 'drat::insertPackage("$(PKGVERS).tgz",repodir="../www",action="prune")'
+	-$(RSCRIPT) -e 'drat::insertPackage("$(PKGVERS).tgz",repodir="../www",action="none")'
 	-$(RSCRIPT) -e 'drat::insertPackage("$(PKGVERS).zip",repodir="../www",action="prune")'
 	$(CP) $(PKG).pdf ../www/manuals
 
@@ -94,10 +101,10 @@ qqcheck: dist
 	$(RCMD) check --library=check -o check --no-codoc --no-examples --no-vignettes --no-manual --no-tests $(PKGVERS).tar.gz
 
 xcheck: dist
-	mkdir -p check
+	mkdir -p check library
 	$(RCMD_ALT) check --no-stop-on-test-error --as-cran --library=library -o check $(PKGVERS).tar.gz
 
-xxcheck: xcheck
+xxcheck: install xcheck
 	mkdir -p check
 	$(REXE) -d "valgrind --tool=memcheck --track-origins=yes --leak-check=full" < check/$(PKG).Rcheck/$(PKG)-Ex.R 2>&1 | tee $(PKG)-Ex.Rout
 
@@ -111,7 +118,7 @@ $(PKG).pdf: $(SOURCE)
 	$(RCMD) Rd2pdf --no-preview --pdf --force -o $(PKG).pdf .
 	$(RSCRIPT) -e "tools::compactPDF(\"$(PKG).pdf\")";
 
-tests: install tests/*.R
+tests: install $(TESTS)
 	export R_LIBS
 	$(MAKE) -C tests
 
@@ -119,10 +126,15 @@ install: library/$(PKG)
 
 library/$(PKG): dist
 	mkdir -p library
-	$(RCMD) INSTALL --library=library $(PKGVERS).tar.gz
+	$(RCMD) INSTALL --html --library=library $(PKGVERS).tar.gz
 
 remove:
-	-$(RCMD) REMOVE --library=library $(PKG)
+	if [ -d library ]; then \
+		$(RCMD) REMOVE --library=library $(PKG); \
+		rmdir library; \
+	fi
+
+fresh: clean remove
 
 inst/doc/*.html: install 
 
