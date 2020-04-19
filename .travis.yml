@@ -5,10 +5,13 @@ file_glob: true
 latex: false
 pandoc: false
 warnings_are_errors: true
+
 r-packages:
 - roxygen2
+
 r_github_packages:
 - kingaa/pomp
+
 addons:
   apt:
     packages:
@@ -16,6 +19,7 @@ addons:
   homebrew:
     packages:
     - libgit2
+
 stages:
 - name: test
   if: tag IS blank
@@ -23,6 +27,7 @@ stages:
   if: tag IS blank
 - name: deploy
   if: tag IS present
+
 jobs:
   include:
   - r: release
@@ -48,7 +53,7 @@ jobs:
     deploy:
       provider: releases
       api_key:
-      secure: GdlgKyvoNJwPnWMUYjGVBuF45BJzelIxAHcvgPSTVmO114wab2ahro/+GAEnRLT/gd6XQhRBrKI64JSqkWxIFRmnlXaaL+DqzDGuZi5goSJ1hd77VhTqBErlLe030P8xUV3SXzh8P8OOuNcxNk5WLdH7E+pLCCeVa/Sg1WSTpgMbBLC4uH7c5eZ1JWYz+LhTYWmGoXnflpy0pzd0tbpAtkBH6OtNkeAsrhGGC9pm6A08KSs9GUB9W2rtee/vkK2hXOehGSpjryoVTaEpXHrzYFRpqGdwI6uyMxwcqA8606xLP886r2AQas/V+zdT8NF+KXhfkoXAUNmSWwn3mcDTMU6glryunjgDKIdNm8TBUcZYlxdJM3Tuc8qYGsTx3FqUyZngdRWaPSoeHQaAfepxl5KwzSwDplfgd9y/9Zl/0qzwldbtpQvOVIbnlJAAQhNFHCpcB2VSnXXP/RaCUdO6hQrqhEM80oKtSKGO6sV8tLavpgADmBGsGfW8hmIM9+TNsy//KM9Ii5VwOWVYg9rGmDFSB6gwcLqujdLsYCvHDcsuND0LjoTNP9yYBavnPVrUv+XBIW57trgvzYD9m3i7zNkSMTdt5SMqfNCa1HCnlrZ/lx5DmMhC9wM35Hdy3U21j8V/90d4FOJu80G+YHfXjn2w6t6sSBziCVn6KvDO9Qo=
+        secure: GdlgKyvoNJwPnWMUYjGVBuF45BJzelIxAHcvgPSTVmO114wab2ahro/+GAEnRLT/gd6XQhRBrKI64JSqkWxIFRmnlXaaL+DqzDGuZi5goSJ1hd77VhTqBErlLe030P8xUV3SXzh8P8OOuNcxNk5WLdH7E+pLCCeVa/Sg1WSTpgMbBLC4uH7c5eZ1JWYz+LhTYWmGoXnflpy0pzd0tbpAtkBH6OtNkeAsrhGGC9pm6A08KSs9GUB9W2rtee/vkK2hXOehGSpjryoVTaEpXHrzYFRpqGdwI6uyMxwcqA8606xLP886r2AQas/V+zdT8NF+KXhfkoXAUNmSWwn3mcDTMU6glryunjgDKIdNm8TBUcZYlxdJM3Tuc8qYGsTx3FqUyZngdRWaPSoeHQaAfepxl5KwzSwDplfgd9y/9Zl/0qzwldbtpQvOVIbnlJAAQhNFHCpcB2VSnXXP/RaCUdO6hQrqhEM80oKtSKGO6sV8tLavpgADmBGsGfW8hmIM9+TNsy//KM9Ii5VwOWVYg9rGmDFSB6gwcLqujdLsYCvHDcsuND0LjoTNP9yYBavnPVrUv+XBIW57trgvzYD9m3i7zNkSMTdt5SMqfNCa1HCnlrZ/lx5DmMhC9wM35Hdy3U21j8V/90d4FOJu80G+YHfXjn2w6t6sSBziCVn6KvDO9Qo=
       file_glob: true
       file:
       - circumstance_*.tgz
