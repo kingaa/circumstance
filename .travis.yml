@@ -47,8 +47,8 @@ jobs:
     - make binary
     deploy:
       provider: releases
-      api-key:
-        secure: B8ZJcx4yG2oBNsmDrDLM7vDAItBqmtMldEh39gSOIhSP4bCZ7tXXjGj9iIsON42Ogzx3f2FU9ZjiBSbrhzHEc+2DuDx7jIUuNFzU1jiCSzZlcKovGuh3mZoSPyxTh0SwEGlKvbJCiXdL0CExhzSsBn9TNacKC9vBw8p8E/b+WhDCak2wdHlBoDPHmNT7ubDN/9GVAtkg+LvIXJS93kRngEScsYHuoRP7QeYGqtuWZ/RiKg3bFNr7uWU5zwHwJWuNnI2wNuBewZjC5o88TGLATk31Rcu28yQOyO2n0XNTjjqjbBp2MV2uwXwpnSBu2kaQyPlm5AFAdFh/B16bMx0odkIOl5Qv3OxYoHDyldwz8PTXvweTQ2xcJXMDDde4uVNczbW2VQevZztK9XT/h+gXiDIAsspXi7R/g8lCRdzxS/ENpbo9hvre48ItVtL7PyYwQ5QBLBxDaDIj7yq4RauEVh73p6xXThKufM4wZHWIiIqEb2B9erEkfWWtU7frxBTGSN+cSGzaH4lUWAxd7ev890awv2KOd57ve8TXFrTHIa8ccV6AFha/A4sedTkO9ZJD8gFG/JycbGtRdQaIULGhx6JgkUkXdQfsRSBn3tL1EhluY/yMQicZ1PG9++z3ORbejiVeLKujMVs/kxoZ3Yi+d6XpRUF/eiafH+WN7kwxoew=
+      api_key:
+      secure: GdlgKyvoNJwPnWMUYjGVBuF45BJzelIxAHcvgPSTVmO114wab2ahro/+GAEnRLT/gd6XQhRBrKI64JSqkWxIFRmnlXaaL+DqzDGuZi5goSJ1hd77VhTqBErlLe030P8xUV3SXzh8P8OOuNcxNk5WLdH7E+pLCCeVa/Sg1WSTpgMbBLC4uH7c5eZ1JWYz+LhTYWmGoXnflpy0pzd0tbpAtkBH6OtNkeAsrhGGC9pm6A08KSs9GUB9W2rtee/vkK2hXOehGSpjryoVTaEpXHrzYFRpqGdwI6uyMxwcqA8606xLP886r2AQas/V+zdT8NF+KXhfkoXAUNmSWwn3mcDTMU6glryunjgDKIdNm8TBUcZYlxdJM3Tuc8qYGsTx3FqUyZngdRWaPSoeHQaAfepxl5KwzSwDplfgd9y/9Zl/0qzwldbtpQvOVIbnlJAAQhNFHCpcB2VSnXXP/RaCUdO6hQrqhEM80oKtSKGO6sV8tLavpgADmBGsGfW8hmIM9+TNsy//KM9Ii5VwOWVYg9rGmDFSB6gwcLqujdLsYCvHDcsuND0LjoTNP9yYBavnPVrUv+XBIW57trgvzYD9m3i7zNkSMTdt5SMqfNCa1HCnlrZ/lx5DmMhC9wM35Hdy3U21j8V/90d4FOJu80G+YHfXjn2w6t6sSBziCVn6KvDO9Qo=
       file_glob: true
       file:
       - circumstance_*.tgz
@@ -56,10 +56,3 @@ jobs:
       skip_cleanup: true
       on:
         tags: true
-deploy:
-  provider: releases
-  api_key:
-    secure: GdlgKyvoNJwPnWMUYjGVBuF45BJzelIxAHcvgPSTVmO114wab2ahro/+GAEnRLT/gd6XQhRBrKI64JSqkWxIFRmnlXaaL+DqzDGuZi5goSJ1hd77VhTqBErlLe030P8xUV3SXzh8P8OOuNcxNk5WLdH7E+pLCCeVa/Sg1WSTpgMbBLC4uH7c5eZ1JWYz+LhTYWmGoXnflpy0pzd0tbpAtkBH6OtNkeAsrhGGC9pm6A08KSs9GUB9W2rtee/vkK2hXOehGSpjryoVTaEpXHrzYFRpqGdwI6uyMxwcqA8606xLP886r2AQas/V+zdT8NF+KXhfkoXAUNmSWwn3mcDTMU6glryunjgDKIdNm8TBUcZYlxdJM3Tuc8qYGsTx3FqUyZngdRWaPSoeHQaAfepxl5KwzSwDplfgd9y/9Zl/0qzwldbtpQvOVIbnlJAAQhNFHCpcB2VSnXXP/RaCUdO6hQrqhEM80oKtSKGO6sV8tLavpgADmBGsGfW8hmIM9+TNsy//KM9Ii5VwOWVYg9rGmDFSB6gwcLqujdLsYCvHDcsuND0LjoTNP9yYBavnPVrUv+XBIW57trgvzYD9m3i7zNkSMTdt5SMqfNCa1HCnlrZ/lx5DmMhC9wM35Hdy3U21j8V/90d4FOJu80G+YHfXjn2w6t6sSBziCVn6KvDO9Qo=
-  file: ''
-  on:
-    repo: kingaa/circumstance
