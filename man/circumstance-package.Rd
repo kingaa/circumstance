@@ -4,5 +4,5 @@
 \alias{circumstance-package}
 \title{circumstance package}
 \description{
-The \pkg{circumstance} package
+\pkg{circumstance} provides tools for parallelizing certain \pkg{pomp} calculations.
 }

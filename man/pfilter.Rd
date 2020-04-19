@@ -2,14 +2,29 @@
 % Please edit documentation in R/pfilter.R
 \name{pfilter}
 \alias{pfilter}
-\alias{pfilter,numeric-method}
-\alias{pfilter-pomp,numeric}
+\alias{pfilter,ANY,numeric-method}
+\alias{pfilter-ANY,numeric}
+\alias{pfilter,ANY,missing-method}
+\alias{pfilter-ANY,missing}
+\alias{pfilter,pompList,numeric-method}
+\alias{pfilter-pompList,numeric}
+\alias{pfilter,pompList,missing-method}
+\alias{pfilter-pompList,missing}
 \title{Parallel particle filter computations}
 \usage{
-\S4method{pfilter}{numeric}(Nrep, ...)
+\S4method{pfilter}{ANY,numeric}(data, Nrep, ...)
+
+\S4method{pfilter}{ANY,missing}(data, Nrep, ...)
+
+\S4method{pfilter}{pompList,numeric}(data, Nrep, ...)
+
+\S4method{pfilter}{pompList,missing}(data, Nrep, ...)
 }
 \arguments{
-\item{Nrep}{number of replicate particle filter computations to run.}
+\item{data}{passed to \code{pomp::\link[pomp]{pfilter}}}
+
+\item{Nrep}{number of replicate particle filter computations to run.
+By default, \code{Nrep = 1}.}
 
 \item{...}{all additional arguments are passed to \code{pomp::\link[pomp]{pfilter}}}
 }
@@ -18,10 +33,13 @@ Runs multiple instances of \code{pfilter} using \code{foreach}.
 }
 \examples{
 options(digits=3)
+png(filename="pfilter-\%02d.png",res=100)
 
 set.seed(789744859)
 
 library(circumstance)
+library(tidyr)
+library(ggplot2)
 library(doParallel)
 library(doRNG)
 
@@ -29,10 +47,37 @@ registerDoParallel()
 registerDoRNG(789744859)
 
 ou2() -> ou2
-pfilter(ou2,Np=1000,Nrep=10) -> pfs
-logmeanexp(logLik(pfs),se=TRUE)
+ou2 \%>\%
+  pfilter(Np=1000,Nrep=6) -> pfs
+
+pfs \%>\%
+  logLik() \%>\%
+  logmeanexp(se=TRUE)
+
+pfs \%>\%
+  as.data.frame() \%>\%
+  head()
+
+ou2 \%>\%
+  pfilter(Np=1000) \%>\%
+  logLik()
+
+pfs \%>\%
+  lapply(simulate) \%>\%
+  setNames(LETTERS[1:6]) \%>\%
+  do.call(c,.) \%>\%
+  pfilter(Nrep=2,Np=200) -> pfs2
+
+pfs2 \%>\%
+  data.frame() \%>\%
+  separate(.id,c("po","rep")) \%>\%
+  ggplot(aes(x=time,y=ess,group=rep,color=rep))+
+  geom_line()+
+  facet_wrap(~po)
 
 registerDoSEQ()
+
+dev.off()
 }
 \seealso{
 \code{pomp::\link[pomp]{pfilter}}.

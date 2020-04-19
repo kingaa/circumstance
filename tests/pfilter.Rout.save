@@ -18,6 +18,7 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 Type 'q()' to quit R.
 
 > options(digits=3)
+> png(filename="pfilter-%02d.png",res=100)
 > 
 > set.seed(789744859)
 > 
@@ -41,6 +42,8 @@ The following object is masked from ‘package:pomp’:
 
     pfilter
 
+> library(tidyr)
+> library(ggplot2)
 > library(doParallel)
 Loading required package: iterators
 Loading required package: parallel
@@ -51,10 +54,47 @@ Loading required package: rngtools
 > registerDoRNG(789744859)
 > 
 > ou2() -> ou2
-> pfilter(ou2,Np=1000,Nrep=10) -> pfs
-> logmeanexp(logLik(pfs),se=TRUE)
+> ou2 %>%
++   pfilter(Np=1000,Nrep=6) -> pfs
+> 
+> pfs %>%
++   logLik() %>%
++   logmeanexp(se=TRUE)
                se 
--476.722    0.261 
+-476.734    0.316 
+> 
+> pfs %>%
++   as.data.frame() %>%
++   head()
+  time    y1    y2     x1    x2   ess cond.loglik .id
+1    1 -4.05 4.781 -3.718  4.25 160.6       -4.31   1
+2    2  1.83 6.273  0.940  6.84 148.1       -4.42   1
+3    3 -1.32 7.556 -0.373  7.59  71.4       -5.20   1
+4    4  6.64 5.730  5.809  6.49  76.1       -5.01   1
+5    5  6.58 1.561  5.605  1.84 217.1       -3.99   1
+6    6  7.54 0.176  7.355 -1.57 135.8       -4.51   1
+> 
+> ou2 %>%
++   pfilter(Np=1000) %>%
++   logLik()
+[1] -477
+> 
+> pfs %>%
++   lapply(simulate) %>%
++   setNames(LETTERS[1:6]) %>%
++   do.call(c,.) %>%
++   pfilter(Nrep=2,Np=200) -> pfs2
+> 
+> pfs2 %>%
++   data.frame() %>%
++   separate(.id,c("po","rep")) %>%
++   ggplot(aes(x=time,y=ess,group=rep,color=rep))+
++   geom_line()+
++   facet_wrap(~po)
 > 
 > registerDoSEQ()
+> 
+> dev.off()
+null device 
+          1 
 > 

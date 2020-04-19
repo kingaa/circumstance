@@ -9,6 +9,9 @@ warnings_are_errors: true
 r-packages:
   - roxygen2
 
+r_github_packages:
+  - kingaa/pomp
+  
 addons:
   apt:
     packages:
@@ -18,8 +21,10 @@ addons:
     - libgit2
 
 stages:
-- test
-- coverage
+- name: test
+  if: tag IS blank
+- name: coverage
+  if: tag IS blank
 - name: deploy
   if: tag IS present
 
@@ -48,7 +53,7 @@ jobs:
     deploy:
       provider: releases
       api-key:
-        secure: "B8ZJcx4yG2oBNsmDrDLM7vDAItBqmtMldEh39gSOIhSP4bCZ7tXXjGj9iIsON42Ogzx3f2FU9ZjiBSbrhzHEc+2DuDx7jIUuNFzU1jiCSzZlcKovGuh3mZoSPyxTh0SwEGlKvbJCiXdL0CExhzSsBn9TNacKC9vBw8p8E/b+WhDCak2wdHlBoDPHmNT7ubDN/9GVAtkg+LvIXJS93kRngEScsYHuoRP7QeYGqtuWZ/RiKg3bFNr7uWU5zwHwJWuNnI2wNuBewZjC5o88TGLATk31Rcu28yQOyO2n0XNTjjqjbBp2MV2uwXwpnSBu2kaQyPlm5AFAdFh/B16bMx0odkIOl5Qv3OxYoHDyldwz8PTXvweTQ2xcJXMDDde4uVNczbW2VQevZztK9XT/h+gXiDIAsspXi7R/g8lCRdzxS/ENpbo9hvre48ItVtL7PyYwQ5QBLBxDaDIj7yq4RauEVh73p6xXThKufM4wZHWIiIqEb2B9erEkfWWtU7frxBTGSN+cSGzaH4lUWAxd7ev890awv2KOd57ve8TXFrTHIa8ccV6AFha/A4sedTkO9ZJD8gFG/JycbGtRdQaIULGhx6JgkUkXdQfsRSBn3tL1EhluY/yMQicZ1PG9++z3ORbejiVeLKujMVs/kxoZ3Yi+d6XpRUF/eiafH+WN7kwxoew="
+        secure: YL3RZDogJaNmBi+jA9cxLLka5i4NQrNT3gM44ssgWAYh01NrmoIU0m0Lm/Q+7PLOebOSq2KHKU8mZDQ3CGXcLWTJfBgUr4deGeVGLsYT7Y0kQMFDzbYJkRe3UbTMGJSmwwJAqRigDP8HZmuw5/TJnKy0mLUYt97nmSzi7+vdnUUrkMRdmh+12mEM9FUEPP3DrRngzOOHBT3ZfD4MWUsLvaLltUSjweFOT1mwdeAUCDZGcfXb7Ian16ihb/FZ823cLq/elIynF7EenjzkP58k1r9vO3O8iBJ530GT/XDI9Fcev6NVD1rzznSR9+gPsVu1tFFabUXO2uHVFRzOCg8k7Pbn7/K7QbW9ctPKPO5TXKAQ96r6di0WaJBhrcINt9ZxXILxM8zOwQyxnaeJxobrnmMGrge0ASNh4KTRLWTEqcU12Ulh4wmZbaGPYSp41Q15mKCxPrFUEwWSqYdYS6kySl8CEv8vMAhjpW0Es68E8CYlxVnCILryn4Kl/b7YxOybFLNqg8hoFr3aaXz4uYR7Bb5P2FRdOAoZy09uNImDQbVpdUgt7vVwN4QjmERVsVjRiJzHYe9UrzM1rMtXDyB+joEEW2FYMleRSC8au8cp0KJj2emzcb+XoukNNsfW5qmlT+L/N6Ye1dgnqmPohmQSiYXo4s+Z5TkDcEMGuh6ZXAg=
       file_glob: true
       file:
       - circumstance_*.tgz
