@@ -25,6 +25,7 @@ Type 'q()' to quit R.
 > library(circumstance)
 Loading required package: foreach
 Loading required package: pomp
+Loading required package: parallel
 
 Attaching package: ‘circumstance’
 
@@ -36,11 +37,20 @@ The following object is masked from ‘package:pomp’:
 > library(ggplot2)
 > library(doParallel)
 Loading required package: iterators
-Loading required package: parallel
 > library(doRNG)
 Loading required package: rngtools
 > 
-> registerDoParallel(2)
+> chk <- Sys.getenv("_R_CHECK_LIMIT_CORES_", "")
+> 
+> if (nzchar(chk) && chk == "TRUE") {
++   ## use 2 cores in CRAN/Travis/AppVeyor
++   ncores <- 2L
++ } else {
++   ## use all cores in devtools::test()
++   ncores <- parallel::detectCores()
++ }
+> 
+> registerDoParallel(ncores)
 > registerDoRNG(789744859)
 > 
 > ou2() -> ou2

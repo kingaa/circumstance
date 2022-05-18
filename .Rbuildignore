@@ -17,6 +17,7 @@ rules.mk
 lib
 library
 check
+examples
 www
 ^(.+?)\.pdf
 ^(.+?)\.tar\.gz
