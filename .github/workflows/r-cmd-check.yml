@@ -23,7 +23,7 @@ jobs:
           - {os: ubuntu-latest,  r: 'devel', http-user-agent: 'release'}
           - {os: ubuntu-latest,  r: 'release'}
           - {os: ubuntu-latest,  r: 'oldrel-1'}
-          - {os: ubuntu-18.04,   r: '4.0.0'}
+          - {os: ubuntu-18.04,   r: '4.1.0'}
           - {os: macOS-latest,   r: 'release'}
           - {os: macOS-10.15,    r: 'release'}
           - {os: windows-latest, r: 'release'}
@@ -44,7 +44,7 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::rcmdcheck any::tidyr any::ggplot2 any::dplyr any::knitr any::subplex any::nloptr
+          extra-packages: any::rcmdcheck any::pomp
           
       - uses: r-lib/actions/check-r-package@v2
 

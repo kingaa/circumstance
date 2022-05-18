@@ -9,7 +9,17 @@ library(ggplot2)
 library(doParallel)
 library(doRNG)
 
-registerDoParallel(2)
+chk <- Sys.getenv("_R_CHECK_LIMIT_CORES_", "")
+
+if (nzchar(chk) && chk == "TRUE") {
+  ## use 2 cores in CRAN/Travis/AppVeyor
+  ncores <- 2L
+} else {
+  ## use all cores in devtools::test()
+  ncores <- parallel::detectCores()
+}
+
+registerDoParallel(ncores)
 registerDoRNG(789744859)
 
 ou2() -> ou2

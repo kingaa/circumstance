@@ -8,7 +8,7 @@ Description: Helper functions for parallelizing pomp computations.
 Authors@R: c(person(given=c("Aaron","A."),family="King",
 		role=c("aut","cre"),email="kingaa@umich.edu"))
 URL: https://kingaa.github.io/circumstance/
-Depends: R(>= 3.6.0), methods, foreach, pomp(>= 2.8)
+Depends: R(>= 4.1.0), methods, foreach, pomp(>= 4.2), parallel
 Suggests: doParallel, doRNG, tidyr, ggplot2
 Remotes: kingaa/pomp
 License: GPL-3
@@ -16,7 +16,7 @@ LazyData: true
 BugReports: https://github.com/kingaa/circumstance/issues/
 Contact: kingaa at umich dot edu
 Encoding: UTF-8
-RoxygenNote: 7.1.0
+RoxygenNote: 7.2.0
 Collate: 
     'circumstance-package.R'
     'pfilter.R'

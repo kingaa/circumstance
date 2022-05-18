@@ -15,7 +15,7 @@
 ##'
 ##' @seealso \code{pomp::\link[pomp]{pfilter}}.
 ##'
-##' @example tests/pfilter.R
+##' @example examples/pfilter.R
 ##'
 NULL
 
