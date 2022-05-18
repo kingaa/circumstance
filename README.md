@@ -2,6 +2,7 @@
 
 ### a helper package for [**pomp**](https://kingaa.github.io/pomp/)
 
+[![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![Development Release](https://img.shields.io/github/release/kingaa/circumstance.svg)](https://github.com/kingaa/circumstance/)
 [![CRAN Status](https://www.r-pkg.org/badges/version/circumstance)](https://cran.r-project.org/package=circumstance)
 [![Last CRAN release date](https://www.r-pkg.org/badges/last-release/circumstance)](https://cran.r-project.org/package=circumstance)
