@@ -15,7 +15,7 @@ For installation instructions and user guides, see [the package website](https:/
 
 Related packages:
 
-- [**pomp**](https://github.com/kingaa/pomp)
+- [**pomp**](https://kingaa.github.io/pomp/)
 - [**spatPomp**](https://github.com/kidusasfaw/spatPomp)
 - [**panelPomp**](https://cbreto.github.io/panelPomp/)
 - [**subplex**](https://github.com/kingaa/subplex/)
