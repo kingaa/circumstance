@@ -1,0 +1,7 @@
+_site/
+Gemfile
+Gemfile.lock
+cache
+figure
+_drafts
+.Rhistory
