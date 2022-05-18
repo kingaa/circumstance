@@ -9,7 +9,7 @@ library(ggplot2)
 library(doParallel)
 library(doRNG)
 
-registerDoParallel()
+registerDoParallel(2)
 registerDoRNG(789744859)
 
 ou2() -> ou2
