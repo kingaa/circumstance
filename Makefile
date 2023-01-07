@@ -1,5 +1,4 @@
+INCLUDES=
+HEADERS=
+
 include rules.mk
-
-includes:
-
-headers:
