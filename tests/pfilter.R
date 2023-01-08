@@ -23,30 +23,32 @@ registerDoParallel(ncores)
 registerDoRNG(789744859)
 
 ou2() -> ou2
-ou2 %>%
+ou2 |>
   pfilter(Np=1000,Nrep=6) -> pfs
 
-pfs %>%
-  logLik() %>%
+pfs |>
+  logLik() |>
   logmeanexp(se=TRUE)
 
-pfs %>%
-  as.data.frame() %>%
+pfs |>
+  as.data.frame() |>
   head()
 
-ou2 %>%
-  pfilter(Np=1000) %>%
+ou2 |>
+  pfilter(Np=1000) |>
   logLik()
 
-pfs %>%
-  lapply(simulate) %>%
-  setNames(LETTERS[1:6]) %>%
-  do.call(c,.) %>%
+pfs |>
+  lapply(simulate) |>
+  setNames(LETTERS[1:6]) |>
+  {
+    \(x) do.call(c,x)
+  }() |>
   pfilter(Nrep=2,Np=200) -> pfs2
 
-pfs2 %>%
-  data.frame() %>%
-  separate(.id,c("po","rep")) %>%
+pfs2 |>
+  data.frame() |>
+  separate(.id,c("po","rep")) |>
   ggplot(aes(x=time,y=ess,group=rep,color=rep))+
   geom_line()+
   facet_wrap(~po)
