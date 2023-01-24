@@ -5,22 +5,15 @@ set.seed(789744859)
 
 library(circumstance)
 library(tidyr)
+library(dplyr)
 library(ggplot2)
-library(doParallel)
+library(doFuture)
 library(doRNG)
 
-chk <- Sys.getenv("_R_CHECK_LIMIT_CORES_", "")
-
-if (nzchar(chk) && chk == "TRUE") {
-  ## use 2 cores in CRAN/Travis/AppVeyor
-  ncores <- 2L
-} else {
-  ## use all cores in devtools::test()
-  ncores <- parallel::detectCores()
-}
-
-registerDoParallel(ncores)
+registerDoFuture()
 registerDoRNG(789744859)
+
+plan(sequential)
 
 ou2() -> ou2
 ou2 |>
@@ -44,15 +37,25 @@ pfs |>
   {
     \(x) do.call(c,x)
   }() |>
-  pfilter(Nrep=2,Np=200) -> pfs2
+  pfilter(Np=200) -> pfs2
 
-pfs2 |>
-  data.frame() |>
-  separate(.id,c("po","rep")) |>
+pfs |>
+  lapply(simulate) |>
+  unname() |>
+  {
+    \(x) do.call(c,x)
+  }() |>
+  pfilter(Nrep=2,Np=200) -> pfs3
+
+bind_rows(
+  a=as.data.frame(pfs2),
+  b=as.data.frame(pfs3),
+  .id="list"
+) |>
+  separate(.L1,c("po","rep")) |>
   ggplot(aes(x=time,y=ess,group=rep,color=rep))+
-  geom_line()+
-  facet_wrap(~po)
-
-registerDoSEQ()
+  geom_line(alpha=0.5)+
+  facet_wrap(~po)+
+  theme_bw()
 
 dev.off()

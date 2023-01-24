@@ -19,7 +19,7 @@ SOURCE = $(sort $(wildcard R/*R src/*.c src/*.h data/* examples/*))
 CSOURCE = $(sort $(wildcard src/*.c))
 TESTS = $(sort $(wildcard tests/*R))
 INSTDOCS = $(sort $(wildcard inst/doc/*))
-SESSION_PKGS = datasets,utils,grDevices,graphics,stats,methods,tidyverse,$(PKG)
+SESSION_PKGS = datasets,utils,grDevices,graphics,stats,methods,tidyverse,doFuture,doRNG,$(PKG)
 
 .PHONY: .check check clean covr debug default fresh \
 htmlhelp manual publish qcheck qqcheck \
@@ -38,7 +38,7 @@ session: RSESSION = emacs -f R
 debug: RSESSION = R -d gdb
 rsession: RSESSION = R
 
-default:
+default: .roxy .NEWS .instdocs .source .includes .headers
 	@echo $(PKGVERS)
 
 roxy: .roxy

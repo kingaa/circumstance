@@ -6,14 +6,14 @@
 ##' @rdname pfilter
 ##' @importFrom pomp pfilter
 ##' @importFrom foreach foreach %dopar%
-##' @include circumstance-package.R
+##' @include package.R
 ##'
-##' @param data passed to \code{pomp::\link[pomp]{pfilter}}
+##' @param data passed to \code{\link[pomp:pfilter]{pomp::pfilter}}
 ##' @param Nrep number of replicate particle filter computations to run.
 ##' By default, \code{Nrep = 1}.
-##' @param ... all additional arguments are passed to \code{pomp::\link[pomp]{pfilter}}
+##' @param ... all additional arguments are passed to \code{\link[pomp:pfilter]{pomp::pfilter}}
 ##'
-##' @seealso \code{pomp::\link[pomp]{pfilter}}.
+##' @seealso \code{\link[pomp:pfilter]{pomp::pfilter}}.
 ##'
 ##' @example examples/pfilter.R
 ##'
@@ -25,8 +25,6 @@ setGeneric(
     standardGeneric("pfilter")
 )
 
-##' @aliases pfilter
-##' @aliases pfilter-ANY,numeric
 ##' @rdname pfilter
 ##' @export
 setMethod(
@@ -41,7 +39,6 @@ setMethod(
   }
 )
 
-##' @aliases pfilter-ANY,missing
 ##' @rdname pfilter
 ##' @export
 setMethod(
@@ -50,7 +47,6 @@ setMethod(
   definition = pomp::pfilter
 )
 
-##' @aliases pfilter-pompList,numeric
 ##' @rdname pfilter
 ##' @export
 setMethod(
@@ -64,31 +60,19 @@ setMethod(
       rep <- (iter_i-1)%/%npo+1
       pomp::pfilter(data[[ipo]],...)
     } -> res
-    if (is.null(names(data))) {
-      names(res) <- sprintf("%d_%d",seq_len(npo),rep(seq_len(Nrep),each=npo))
-    } else {
-      names(res) <- sprintf("%s_%d",names(data),rep(seq_len(Nrep),each=npo))
-    }
+    nm <- names(data)
+    if (is.null(nm)) nm <- seq_len(npo)
+    names(res) <- sprintf("%s_%d",nm,rep(seq_len(Nrep),each=npo))
     res
   }
 )
 
-##' @aliases pfilter-pompList,missing
 ##' @rdname pfilter
 ##' @export
 setMethod(
   "pfilter",
   signature=signature(data = "pompList", Nrep = "missing"),
   definition = function (data, ...) {
-    jobs <- seq_len(length(data))
-    foreach (iter_i=jobs,.combine=c) %dopar% {
-      pomp::pfilter(data[[iter_i]],...)
-    } -> res
-    if (is.null(names(data))) {
-      names(res) <- jobs
-    } else {
-      names(res) <- names(data)
-    }
-    res
+    circumstance::pfilter(data,Nrep=1L,...)
   }
 )

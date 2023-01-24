@@ -4,6 +4,8 @@
 ##' \pkg{circumstance} provides tools for parallelizing certain \pkg{pomp} calculations.
 ##'
 ##' @name circumstance-package
+##' @aliases circumstance,package
+##' @docType package
 ##' @import methods
 ##' @importFrom utils globalVariables
 ##'

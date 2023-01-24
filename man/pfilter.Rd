@@ -3,13 +3,9 @@
 \name{pfilter}
 \alias{pfilter}
 \alias{pfilter,ANY,numeric-method}
-\alias{pfilter-ANY,numeric}
 \alias{pfilter,ANY,missing-method}
-\alias{pfilter-ANY,missing}
 \alias{pfilter,pompList,numeric-method}
-\alias{pfilter-pompList,numeric}
 \alias{pfilter,pompList,missing-method}
-\alias{pfilter-pompList,missing}
 \title{Parallel particle filter computations}
 \usage{
 \S4method{pfilter}{ANY,numeric}(data, Nrep, ...)
@@ -21,22 +17,31 @@
 \S4method{pfilter}{pompList,missing}(data, Nrep, ...)
 }
 \arguments{
-\item{data}{passed to \code{pomp::\link[pomp]{pfilter}}}
+\item{data}{passed to \code{\link[pomp:pfilter]{pomp::pfilter}}}
 
 \item{Nrep}{number of replicate particle filter computations to run.
 By default, \code{Nrep = 1}.}
 
-\item{...}{all additional arguments are passed to \code{pomp::\link[pomp]{pfilter}}}
+\item{...}{all additional arguments are passed to \code{\link[pomp:pfilter]{pomp::pfilter}}}
 }
 \description{
 Runs multiple instances of \code{pfilter} using \code{foreach}.
 }
 \examples{
 library(circumstance)
+library(doFuture)
+library(doRNG)
+registerDoFuture()
+registerDoRNG()
 
 ou2() -> ou2
-ou2 |> pfilter(Np=1000,Nrep=6) -> pfs
+
+plan(sequential)
+system.time(ou2 |> pfilter(Np=10000,Nrep=6) -> pfs)
+
+plan(multicore)
+system.time(ou2 |> pfilter(Np=10000,Nrep=6) -> pfs)
 }
 \seealso{
-\code{pomp::\link[pomp]{pfilter}}.
+\code{\link[pomp:pfilter]{pomp::pfilter}}.
 }

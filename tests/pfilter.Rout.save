@@ -7,8 +7,6 @@ R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
 Type 'license()' or 'licence()' for distribution details.
 
-  Natural language support but running in an English locale
-
 R is a collaborative project with many contributors.
 Type 'contributors()' for more information and
 'citation()' on how to cite R or R packages in publications.
@@ -23,7 +21,6 @@ Type 'q()' to quit R.
 > set.seed(789744859)
 > 
 > library(circumstance)
-Loading required package: foreach
 Loading required package: pomp
 
 Welcome to pomp!
@@ -41,25 +38,29 @@ The following object is masked from ‘package:pomp’:
     pfilter
 
 > library(tidyr)
+> library(dplyr)
+
+Attaching package: ‘dplyr’
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
 > library(ggplot2)
-> library(doParallel)
-Loading required package: iterators
-Loading required package: parallel
+> library(doFuture)
+Loading required package: foreach
+Loading required package: future
 > library(doRNG)
 Loading required package: rngtools
 > 
-> chk <- Sys.getenv("_R_CHECK_LIMIT_CORES_", "")
-> 
-> if (nzchar(chk) && chk == "TRUE") {
-+   ## use 2 cores in CRAN/Travis/AppVeyor
-+   ncores <- 2L
-+ } else {
-+   ## use all cores in devtools::test()
-+   ncores <- parallel::detectCores()
-+ }
-> 
-> registerDoParallel(ncores)
+> registerDoFuture()
 > registerDoRNG(789744859)
+> 
+> plan(sequential)
 > 
 > ou2() -> ou2
 > ou2 |>
@@ -74,7 +75,7 @@ Loading required package: rngtools
 > pfs |>
 +   as.data.frame() |>
 +   head()
-  .id time    y1    y2     x1    x2   ess cond.logLik
+  .L1 time    y1    y2     x1    x2   ess cond.logLik
 1   1    1 -4.05 4.781 -3.718  4.25 160.6       -4.31
 2   1    2  1.83 6.273  0.940  6.84 148.1       -4.42
 3   1    3 -1.32 7.556 -0.373  7.59  71.4       -5.20
@@ -93,16 +94,26 @@ Loading required package: rngtools
 +   {
 +     \(x) do.call(c,x)
 +   }() |>
-+   pfilter(Nrep=2,Np=200) -> pfs2
++   pfilter(Np=200) -> pfs2
 > 
-> pfs2 |>
-+   data.frame() |>
-+   separate(.id,c("po","rep")) |>
+> pfs |>
++   lapply(simulate) |>
++   unname() |>
++   {
++     \(x) do.call(c,x)
++   }() |>
++   pfilter(Nrep=2,Np=200) -> pfs3
+> 
+> bind_rows(
++   a=as.data.frame(pfs2),
++   b=as.data.frame(pfs3),
++   .id="list"
++ ) |>
++   separate(.L1,c("po","rep")) |>
 +   ggplot(aes(x=time,y=ess,group=rep,color=rep))+
-+   geom_line()+
-+   facet_wrap(~po)
-> 
-> registerDoSEQ()
++   geom_line(alpha=0.5)+
++   facet_wrap(~po)+
++   theme_bw()
 > 
 > dev.off()
 null device 

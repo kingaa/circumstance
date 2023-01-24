@@ -1,15 +1,16 @@
 Package: circumstance
 Type: Package
 Title: pomp parallelized
-Version: 0.0.3.0
-Date: 2023-01-11
+Version: 0.0.4.0
+Date: 2023-01-24
 Maintainer: Aaron A. King <kingaa@umich.edu>
 Description: Helper functions for parallelizing pomp computations.
 Authors@R: c(person(given=c("Aaron","A."),family="King",
 		role=c("aut","cre"),email="kingaa@umich.edu"))
 URL: https://kingaa.github.io/circumstance/
-Depends: R(>= 4.1.0), methods, foreach, pomp(>= 4.5)
-Suggests: doParallel, doRNG, tidyr, ggplot2
+Depends: R(>= 4.1.0), pomp(>= 4.6)
+Imports: methods, foreach
+Suggests: doFuture, doRNG, dplyr, tidyr, ggplot2
 Remotes: kingaa/pomp
 License: GPL-3
 LazyData: true
@@ -19,5 +20,5 @@ Encoding: UTF-8
 Roxygen: list(roclets = c("collate", "namespace", "rd"))
 RoxygenNote: 7.2.3
 Collate: 
-    'circumstance-package.R'
+    'package.R'
     'pfilter.R'
