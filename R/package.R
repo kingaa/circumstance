@@ -13,4 +13,4 @@ NULL
 
 ## the following line quiets concerns of
 ## R CMD check regarding the foreach iterator variables
-utils::globalVariables("iter_i")
+utils::globalVariables(c("iter_i"))

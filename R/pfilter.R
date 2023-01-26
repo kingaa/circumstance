@@ -31,7 +31,7 @@ setMethod(
   "pfilter",
   signature=signature(data = "ANY", Nrep = "numeric"),
   definition = function (data, Nrep, ...) {
-    foreach (iter_i=seq_len(Nrep),.combine=c) %dopar% {
+    foreach (seq_len(Nrep),.combine=c) %dopar% {
       pomp::pfilter(data,...)
     } -> res
     names(res) <- seq_len(Nrep)

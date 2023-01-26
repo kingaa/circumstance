@@ -1,8 +1,14 @@
 _N_e_w_s _f_o_r _p_a_c_k_a_g_e '_c_i_r_c_u_m_s_t_a_n_c_e'
 
+_C_h_a_n_g_e_s _i_n '_c_i_r_c_u_m_s_t_a_n_c_e' _v_e_r_s_i_o_n _0._0._5:
+
+        • New ‘mif2’ method for parallel iterated filtering.
+
+        • New ‘continue’ method for continuing ‘mif2’ computations.
+
 _C_h_a_n_g_e_s _i_n '_c_i_r_c_u_m_s_t_a_n_c_e' _v_e_r_s_i_o_n _0._0._4:
 
-        • Use with ‘doFuture’ is intended.
+        • Use with ‘doFuture’ is envisioned.
 
         • Streamline some of the definitions.
 

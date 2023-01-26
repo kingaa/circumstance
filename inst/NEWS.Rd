@@ -1,8 +1,14 @@
 \name{NEWS}
 \title{News for package `circumstance'}
+\section{Changes in \pkg{circumstance} version 0.0.5}{
+  \itemize{
+    \item New \code{mif2} method for parallel iterated filtering.
+    \item New \code{continue} method for continuing \code{mif2} computations.
+  }
+}
 \section{Changes in \pkg{circumstance} version 0.0.4}{
   \itemize{
-    \item Use with \pkg{doFuture} is intended.
+    \item Use with \pkg{doFuture} is envisioned.
     \item Streamline some of the definitions.
     \item Improve coverage.
   }

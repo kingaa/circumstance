@@ -141,7 +141,7 @@ rhub:
 
 covr: covr.rds
 
-covr.rds: DESCRIPTION
+covr.rds: .source
 	$(REXE) -e 'library(covr); package_coverage(type="all") -> cov; report(cov,file="covr.html",browse=TRUE); saveRDS(cov,file="covr.rds")'
 
 xcovr: covr
