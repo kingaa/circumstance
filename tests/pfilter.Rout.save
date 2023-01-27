@@ -93,17 +93,13 @@ Loading required package: rngtools
 > pfs |>
 +   lapply(simulate) |>
 +   setNames(LETTERS[1:6]) |>
-+   {
-+     \(x) do.call(c,x)
-+   }() |>
++   conjoin() |>
 +   pfilter(Np=200) -> pfs2
 > 
 > pfs |>
 +   lapply(simulate) |>
 +   unname() |>
-+   {
-+     \(x) do.call(c,x)
-+   }() |>
++   conjoin() |>
 +   pfilter(Nrep=2,Np=200) -> pfs3
 > 
 > bind_rows(
