@@ -130,7 +130,7 @@ Removed 3 rows containing missing values (`geom_line()`).
 > 
 > mfs |>
 +   lapply(as_pomp) |>
-+   conjoin() |>
++   concat() |>
 +   mif2(
 +     Np=500,Nmif=3,
 +     rw.sd=rw_sd(alpha_3=0.01,alpha_1=0.01),
@@ -148,7 +148,7 @@ Removed 3 rows containing missing values (`geom_line()`).
 > 
 > mfs |>
 +   lapply(as,"pfilterd_pomp") |>
-+   conjoin() |>
++   concat() |>
 +   mif2(
 +     Np=500,Nmif=3,
 +     rw.sd=rw_sd(alpha_3=0.01,alpha_1=0.01),

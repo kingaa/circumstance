@@ -34,13 +34,13 @@ ou2 |>
 pfs |>
   lapply(simulate) |>
   setNames(LETTERS[1:6]) |>
-  conjoin() |>
+  concat() |>
   pfilter(Np=200) -> pfs2
 
 pfs |>
   lapply(simulate) |>
   unname() |>
-  conjoin() |>
+  concat() |>
   pfilter(Nrep=2,Np=200) -> pfs3
 
 bind_rows(

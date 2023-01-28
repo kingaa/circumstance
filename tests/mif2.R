@@ -61,7 +61,7 @@ mfs |>
 
 mfs |>
   lapply(as_pomp) |>
-  conjoin() |>
+  concat() |>
   mif2(
     Np=500,Nmif=3,
     rw.sd=rw_sd(alpha_3=0.01,alpha_1=0.01),
@@ -77,7 +77,7 @@ mfs |>
 
 mfs |>
   lapply(as,"pfilterd_pomp") |>
-  conjoin() |>
+  concat() |>
   mif2(
     Np=500,Nmif=3,
     rw.sd=rw_sd(alpha_3=0.01,alpha_1=0.01),
