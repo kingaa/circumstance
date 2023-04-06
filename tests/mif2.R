@@ -35,7 +35,7 @@ mfs |>
   mutate(iteration=as.integer(iteration)) |>
   ggplot(aes(x=iteration,y=value,group=.L1))+
   geom_line()+
-  facet_grid(variable~.,scales="free_y")+
+  facet_grid(name~.,scales="free_y")+
   theme_bw()
 
 mfs |>
@@ -51,7 +51,7 @@ mfs |>
   mutate(iteration=as.integer(iteration)) |>
   ggplot(aes(x=iteration,y=value,group=.L1))+
   geom_line()+
-  facet_grid(variable~.,scales="free_y")+
+  facet_grid(name~.,scales="free_y")+
   theme_bw()
 
 mfs |>
@@ -72,7 +72,7 @@ mfs |>
   mutate(iteration=as.integer(iteration)) |>
   ggplot(aes(x=iteration,y=value,group=.L1))+
   geom_line()+
-  facet_grid(variable~.,scales="free_y")+
+  facet_grid(name~.,scales="free_y")+
   theme_bw()
 
 mfs |>
@@ -88,7 +88,7 @@ mfs |>
   mutate(iteration=as.integer(iteration)) |>
   ggplot(aes(x=iteration,y=value,group=.L1))+
   geom_line()+
-  facet_grid(variable~.,scales="free_y")+
+  facet_grid(name~.,scales="free_y")+
   theme_bw()
 
 dev.off()
