@@ -1,0 +1,1 @@
+- Smoothing tool for 'pfilterd_pomp' and 'pmcmcd_pomp' objects

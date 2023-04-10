@@ -1,5 +1,10 @@
 \name{NEWS}
 \title{News for package `circumstance'}
+\section{Changes in \pkg{circumstance} version 0.0.6}{
+  \itemize{
+    \item New \code{plot_matrix} method for making scatterplot matrices.
+  }
+}
 \section{Changes in \pkg{circumstance} version 0.0.5}{
   \itemize{
     \item New \code{mif2} method for parallel iterated filtering.
