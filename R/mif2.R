@@ -38,6 +38,7 @@ setMethod(
       pomp::mif2(data,params=starts[iter_i,],...)
     } -> res
     names(res) <- row.names(starts)
+    attr(res,"doPar") <- get_doPar_info()
     res
   }
 )
@@ -60,6 +61,7 @@ setMethod(
       pomp::mif2(data[[iter_i]],...)
     } -> res
     names(res) <- names(data)
+    attr(res,"doPar") <- get_doPar_info()
     res
   }
 )
@@ -74,6 +76,7 @@ setMethod(
       pomp::mif2(data[[iter_i]],...)
     } -> res
     names(res) <- names(data)
+    attr(res,"doPar") <- get_doPar_info()
     res
   }
 )
@@ -88,6 +91,7 @@ setMethod(
       pomp::mif2(data[[iter_i]],...)
     } -> res
     names(res) <- names(data)
+    attr(res,"doPar") <- get_doPar_info()
     res
   }
 )
@@ -102,6 +106,7 @@ setMethod(
       pomp::continue(object[[iter_i]],...)
     } -> res
     names(res) <- names(object)
+    attr(res,"doPar") <- get_doPar_info()
     res
   }
 )

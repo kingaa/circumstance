@@ -14,3 +14,11 @@ NULL
 ## the following line quiets concerns of
 ## R CMD check regarding the foreach iterator variables
 utils::globalVariables(c("iter_i"))
+
+##' @importFrom foreach getDoParWorkers getDoParName
+get_doPar_info <- function () {
+  list(
+    name=foreach::getDoParName(),
+    workers=foreach::getDoParWorkers()
+  )
+}

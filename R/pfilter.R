@@ -35,6 +35,7 @@ setMethod(
       pomp::pfilter(data,...)
     } -> res
     names(res) <- seq_len(Nrep)
+    attr(res,"doPar") <- get_doPar_info()
     res
   }
 )
@@ -63,6 +64,7 @@ setMethod(
     nm <- names(data)
     if (is.null(nm)) nm <- seq_len(npo)
     names(res) <- sprintf("%s_%d",nm,rep(seq_len(Nrep),each=npo))
+    attr(res,"doPar") <- get_doPar_info()
     res
   }
 )
