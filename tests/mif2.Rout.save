@@ -37,7 +37,7 @@ Attaching package: ‘circumstance’
 
 The following objects are masked from ‘package:pomp’:
 
-    continue, mif2, pfilter
+    continue, mif2, pfilter, pmcmc
 
 > library(tidyr)
 > library(dplyr)
@@ -104,6 +104,9 @@ Removed 3 rows containing missing values (`geom_line()`).
    1    2    3 
 -480 -483 -477 
 > 
+> mfs[[1]] |> mif2()
+<object of class ‘mif2d_pomp’>
+> 
 > mfs |>
 +   continue(Nmif=5) |>
 +   traces(pars=c("alpha_1","alpha_3","loglik")) |>
@@ -121,12 +124,12 @@ Removed 3 rows containing missing values (`geom_line()`).
 +   as.data.frame() |>
 +   head()
   .L1 time    y1    y2   ess cond.logLik
-1   1    1 -4.05 4.781  96.0       -4.19
-2   1    2  1.83 6.273  58.8       -4.69
-3   1    3 -1.32 7.556  36.5       -5.38
-4   1    4  6.64 5.730  30.4       -5.35
-5   1    5  6.58 1.561 121.1       -3.86
-6   1    6  7.54 0.176  80.8       -4.27
+1   1    1 -4.05 4.781  81.1       -4.27
+2   1    2  1.83 6.273  82.8       -4.26
+3   1    3 -1.32 7.556  30.3       -5.31
+4   1    4  6.64 5.730  36.7       -5.25
+5   1    5  6.58 1.561 108.6       -3.99
+6   1    6  7.54 0.176  70.4       -4.53
 > 
 > mfs |>
 +   lapply(as_pomp) |>

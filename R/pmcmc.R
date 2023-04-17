@@ -1,41 +1,35 @@
-##' Parallel iterated filtering
+##' Particle Markov chain Monte Carlo in parallel
 ##'
-##' Runs multiple instances of \code{mif2} using \code{foreach}.
+##' Runs multiple instances of \code{pmcmc} using \code{foreach}.
 ##'
-##' @name mif2
-##' @rdname mif2
-##' @importFrom pomp mif2
+##' @name pmcmc
+##' @rdname pmcmc
+##' @importFrom pomp pmcmc
 ##' @importFrom foreach foreach %dopar%
-##' @include pfilter.R
+##' @include pfilter.R mif2.R
 ##'
-##' @param data passed to \code{\link[pomp:mif2]{pomp::mif2}}
+##' @param data passed to \code{\link[pomp:pmcmc]{pomp::pmcmc}}
 ##' @param starts data frame containing parameters at which to begin iterated filtering
-##' @param ... all additional arguments are passed to \code{\link[pomp:mif2]{pomp::mif2}}
+##' @param ... all additional arguments are passed to \code{\link[pomp:pmcmc]{pomp::pmcmc}}
 ##'
-##' @seealso \code{\link[pomp:mif2]{pomp::mif2}}.
+##' @seealso \code{\link[pomp:pmcmc]{pomp::pmcmc}}.
 ##'
 NULL
 
 setGeneric(
-  "mif2",
+  "pmcmc",
   function (data, starts, ...)
-    standardGeneric("mif2")
+    standardGeneric("pmcmc")
 )
 
-setGeneric(
-  "continue",
-  function (object, ...)
-    standardGeneric("continue")
-)
-
-##' @rdname mif2
+##' @rdname pmcmc
 ##' @export
 setMethod(
-  "mif2",
+  "pmcmc",
   signature=signature(data = "ANY", starts = "data.frame"),
   definition = function (data, starts, ...) {
     foreach (iter_i=seq_len(nrow(starts)),.combine=c) %dopar% {
-      pomp::mif2(data,params=starts[iter_i,],...)
+      pomp::pmcmc(data,params=starts[iter_i,],...)
     } -> res
     names(res) <- row.names(starts)
     attr(res,"doPar") <- get_doPar_info()
@@ -43,24 +37,24 @@ setMethod(
   }
 )
 
-##' @rdname mif2
+##' @rdname pmcmc
 ##' @export
 setMethod(
-  "mif2",
+  "pmcmc",
   signature=signature(data = "ANY", starts = "missing"),
   definition = function (data, ...) {
-    pomp::mif2(data,...)
+    pomp::pmcmc(data,...)
   }
 )
 
-##' @rdname mif2
+##' @rdname pmcmc
 ##' @export
 setMethod(
-  "mif2",
+  "pmcmc",
   signature=signature(data = "pompList", starts = "missing"),
   definition = function (data, ...) {
     foreach (iter_i=seq_along(data),.combine=c) %dopar% {
-      pomp::mif2(data[[iter_i]],...)
+      pomp::pmcmc(data[[iter_i]],...)
     } -> res
     names(res) <- names(data)
     attr(res,"doPar") <- get_doPar_info()
@@ -68,14 +62,14 @@ setMethod(
   }
 )
 
-##' @rdname mif2
+##' @rdname pmcmc
 ##' @export
 setMethod(
-  "mif2",
+  "pmcmc",
   signature=signature(data = "pfilterList", starts = "missing"),
   definition = function (data, ...) {
     foreach (iter_i=seq_along(data),.combine=c) %dopar% {
-      pomp::mif2(data[[iter_i]],...)
+      pomp::pmcmc(data[[iter_i]],...)
     } -> res
     names(res) <- names(data)
     attr(res,"doPar") <- get_doPar_info()
@@ -83,14 +77,14 @@ setMethod(
   }
 )
 
-##' @rdname mif2
+##' @rdname pmcmc
 ##' @export
 setMethod(
-  "mif2",
-  signature=signature(data = "mif2List", starts = "missing"),
+  "pmcmc",
+  signature=signature(data = "pmcmcList", starts = "missing"),
   definition = function (data, ...) {
     foreach (iter_i=seq_along(data),.combine=c) %dopar% {
-      pomp::mif2(data[[iter_i]],...)
+      pomp::pmcmc(data[[iter_i]],...)
     } -> res
     names(res) <- names(data)
     attr(res,"doPar") <- get_doPar_info()
@@ -102,7 +96,7 @@ setMethod(
 ##' @export
 setMethod(
   "continue",
-  signature=signature(object = "mif2List"),
+  signature=signature(object = "pmcmcList"),
   definition = function (object, ...) {
     foreach (iter_i=seq_along(object),.combine=c) %dopar% {
       pomp::continue(object[[iter_i]],...)

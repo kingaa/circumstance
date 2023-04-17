@@ -45,7 +45,9 @@ setMethod(
 setMethod(
   "pfilter",
   signature=signature(data = "ANY", Nrep = "missing"),
-  definition = pomp::pfilter
+  definition = function (data, ...) {
+    pomp::pfilter(data,...)
+  }
 )
 
 ##' @rdname pfilter

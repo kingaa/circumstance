@@ -44,6 +44,8 @@ mfs |>
 
 mfs |> logLik()
 
+mfs[[1]] |> mif2()
+
 mfs |>
   continue(Nmif=5) |>
   traces(pars=c("alpha_1","alpha_3","loglik")) |>

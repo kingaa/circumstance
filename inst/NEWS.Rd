@@ -1,8 +1,13 @@
 \name{NEWS}
 \title{News for package `circumstance'}
-\section{Changes in \pkg{circumstance} version 0.0.6}{
+\section{Changes in \pkg{circumstance} version 0.0.8}{
   \itemize{
-    \item New \code{plot_matrix} method for making scatterplot matrices.
+    \item New parallel \code{pmcmc} methods for parallel particle Markov chain Monte Carlo.
+  }
+}
+\section{Changes in \pkg{circumstance} version 0.0.7}{
+  \itemize{
+    \item Information on parallel backend is now stored as an attribute of returned objects.
   }
 }
 \section{Changes in \pkg{circumstance} version 0.0.5}{
