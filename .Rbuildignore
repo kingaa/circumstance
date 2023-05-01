@@ -1,6 +1,11 @@
-revdep
-tools
 examples
+repo
+revdep
+scripts
+tools
+wiki
+www
+yaml
 tests/Makefile
 tests/(.+?)\.png$
 tests/(.+?)\.pdf$
@@ -9,6 +14,7 @@ inst/doc/Makefile
 inst/doc/(.+?).md
 inst/doc/(.+?).Rmd
 man/roxygen
+Doxyfile
 LICENSE\.md$
 README\.(.?)$
 CRAN\.md$
@@ -33,11 +39,10 @@ TODO\.md$
 \.tests
 Makefile
 rules.mk
-scripts
 lib
+libs
 library
 check
-www
 ^(.+?)\.pdf
 ^(.+?)\.tar\.gz
 ^(.+?)\.tgz
