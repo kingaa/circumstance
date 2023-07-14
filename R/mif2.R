@@ -5,13 +5,13 @@
 ##' @name mif2
 ##' @rdname mif2
 ##' @importFrom pomp mif2
-##' @importFrom foreach foreach %dopar%
+##' @importFrom foreach foreach
+##' @importFrom doFuture %dofuture%
 ##' @include pfilter.R
-##'
 ##' @param data passed to \code{\link[pomp:mif2]{pomp::mif2}}
 ##' @param starts data frame containing parameters at which to begin iterated filtering
 ##' @param ... all additional arguments are passed to \code{\link[pomp:mif2]{pomp::mif2}}
-##'
+##' @inheritParams pfilter
 ##' @seealso \code{\link[pomp:mif2]{pomp::mif2}}.
 ##'
 NULL
@@ -33,12 +33,18 @@ setGeneric(
 setMethod(
   "mif2",
   signature=signature(data = "ANY", starts = "data.frame"),
-  definition = function (data, starts, ...) {
-    foreach (iter_i=seq_len(nrow(starts)),.combine=c) %dopar% {
+  definition = function (data, starts, ...,
+    .options.future = list(seed = TRUE)
+  ) {
+    foreach (
+      iter_i=seq_len(nrow(starts)),
+      .combine=c,
+      .options.future=.options.future
+    ) %dofuture% {
       pomp::mif2(data,params=starts[iter_i,],...)
     } -> res
     names(res) <- row.names(starts)
-    attr(res,"doPar") <- get_doPar_info()
+    attr(res,"parinfo") <- get_parinfo()
     res
   }
 )
@@ -58,12 +64,18 @@ setMethod(
 setMethod(
   "mif2",
   signature=signature(data = "pompList", starts = "missing"),
-  definition = function (data, ...) {
-    foreach (iter_i=seq_along(data),.combine=c) %dopar% {
+  definition = function (data, ...,
+    .options.future = list(seed = TRUE)
+  ) {
+    foreach (
+      iter_i=seq_along(data),
+      .combine=c,
+      .options.future=.options.future
+    ) %dofuture% {
       pomp::mif2(data[[iter_i]],...)
     } -> res
     names(res) <- names(data)
-    attr(res,"doPar") <- get_doPar_info()
+    attr(res,"parinfo") <- get_parinfo()
     res
   }
 )
@@ -73,12 +85,18 @@ setMethod(
 setMethod(
   "mif2",
   signature=signature(data = "pfilterList", starts = "missing"),
-  definition = function (data, ...) {
-    foreach (iter_i=seq_along(data),.combine=c) %dopar% {
+  definition = function (data, ...,
+    .options.future = list(seed = TRUE)
+  ) {
+    foreach (
+      iter_i=seq_along(data),
+      .combine=c,
+      .options.future=.options.future
+    ) %dofuture% {
       pomp::mif2(data[[iter_i]],...)
     } -> res
     names(res) <- names(data)
-    attr(res,"doPar") <- get_doPar_info()
+    attr(res,"parinfo") <- get_parinfo()
     res
   }
 )
@@ -88,12 +106,18 @@ setMethod(
 setMethod(
   "mif2",
   signature=signature(data = "mif2List", starts = "missing"),
-  definition = function (data, ...) {
-    foreach (iter_i=seq_along(data),.combine=c) %dopar% {
+  definition = function (data, ...,
+    .options.future = list(seed = TRUE)
+  ) {
+    foreach (
+      iter_i=seq_along(data),
+      .combine=c,
+      .options.future=.options.future
+    ) %dofuture% {
       pomp::mif2(data[[iter_i]],...)
     } -> res
     names(res) <- names(data)
-    attr(res,"doPar") <- get_doPar_info()
+    attr(res,"parinfo") <- get_parinfo()
     res
   }
 )
@@ -103,12 +127,18 @@ setMethod(
 setMethod(
   "continue",
   signature=signature(object = "mif2List"),
-  definition = function (object, ...) {
-    foreach (iter_i=seq_along(object),.combine=c) %dopar% {
+  definition = function (object, ...,
+    .options.future = list(seed = TRUE)
+  ) {
+    foreach (
+      iter_i=seq_along(object),
+      .combine=c,
+      .options.future=.options.future
+    ) %dofuture% {
       pomp::continue(object[[iter_i]],...)
     } -> res
     names(res) <- names(object)
-    attr(res,"doPar") <- get_doPar_info()
+    attr(res,"parinfo") <- get_parinfo()
     res
   }
 )

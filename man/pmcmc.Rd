@@ -9,15 +9,15 @@
 \alias{pmcmc,pmcmcList,missing-method}
 \title{Particle Markov chain Monte Carlo in parallel}
 \usage{
-\S4method{pmcmc}{ANY,data.frame}(data, starts, ...)
+\S4method{pmcmc}{ANY,data.frame}(data, starts, ..., .options.future = list(seed = TRUE))
 
 \S4method{pmcmc}{ANY,missing}(data, starts, ...)
 
-\S4method{pmcmc}{pompList,missing}(data, starts, ...)
+\S4method{pmcmc}{pompList,missing}(data, ..., .options.future = list(seed = TRUE))
 
-\S4method{pmcmc}{pfilterList,missing}(data, starts, ...)
+\S4method{pmcmc}{pfilterList,missing}(data, ..., .options.future = list(seed = TRUE))
 
-\S4method{pmcmc}{pmcmcList,missing}(data, starts, ...)
+\S4method{pmcmc}{pmcmcList,missing}(data, ..., .options.future = list(seed = TRUE))
 }
 \arguments{
 \item{data}{passed to \code{\link[pomp:pmcmc]{pomp::pmcmc}}}
@@ -25,6 +25,9 @@
 \item{starts}{data frame containing parameters at which to begin iterated filtering}
 
 \item{...}{all additional arguments are passed to \code{\link[pomp:pmcmc]{pomp::pmcmc}}}
+
+\item{.options.future}{list of options for the \pkg{doFuture} backend.
+See \code{\link[doFuture]{\%dofuture\%}} for details.}
 }
 \description{
 Runs multiple instances of \code{pmcmc} using \code{foreach}.

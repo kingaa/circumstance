@@ -6,11 +6,11 @@
 ##' @aliases continue,missing-method continue,ANY-method
 ##' @include package.R
 ##' @rdname continue
-##' @seealso \code{\link{mif2}}
-##'
 ##' @param object the result of an iterative \pkg{pomp} computation
-##' @param \dots additional arguments will be passed to the underlying method.
+##' @param ... additional arguments will be passed to the underlying method.
 ##' This allows one to modify parameters used in the original computations.
+##' @inheritParams pfilter
+##' @seealso \code{\link{mif2}}
 NULL
 
 ##' @name continue

@@ -8,10 +8,6 @@ library(tidyr)
 library(dplyr)
 library(ggplot2)
 library(doFuture)
-library(doRNG)
-
-registerDoFuture()
-registerDoRNG(311289009)
 
 plan(sequential)
 

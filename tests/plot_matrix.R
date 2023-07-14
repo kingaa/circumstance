@@ -1,6 +1,7 @@
 library(dplyr)
 library(grid)
 library(circumstance)
+set.seed(364685970)
 
 png(filename="plot_matrix-%01d.png",res=100)
 

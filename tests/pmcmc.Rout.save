@@ -1,5 +1,5 @@
 
-R version 4.2.3 (2023-03-15) -- "Shortstop Beagle"
+R version 4.3.1 (2023-06-16) -- "Beagle Scouts"
 Copyright (C) 2023 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -56,11 +56,6 @@ The following objects are masked from ‘package:base’:
 > library(doFuture)
 Loading required package: foreach
 Loading required package: future
-> library(doRNG)
-Loading required package: rngtools
-> 
-> registerDoFuture()
-> registerDoRNG(311289009)
 > 
 > plan(sequential)
 > 
@@ -86,16 +81,16 @@ Loading required package: rngtools
 +   as.data.frame() |>
 +   head()
   .L1 time    y1    y2    ess cond.logLik
-1   1    1 -4.05 4.781 116.79       -3.88
-2   1    2  1.83 6.273  38.53       -4.92
-3   1    3 -1.32 7.556  73.81       -4.50
-4   1    4  6.64 5.730   5.77       -6.83
-5   1    5  6.58 1.561  63.59       -4.46
-6   1    6  7.54 0.176  30.84       -5.25
+1   1    1 -4.05 4.781 103.53       -4.10
+2   1    2  1.83 6.273  59.08       -4.51
+3   1    3 -1.32 7.556  77.41       -4.36
+4   1    4  6.64 5.730   6.58       -7.45
+5   1    5  6.58 1.561  60.66       -4.59
+6   1    6  7.54 0.176  36.48       -5.24
 > 
 > pms |> logLik()
     1     2     3 
--47.0 -45.6 -45.5 
+-47.2 -45.1 -44.3 
 > 
 > pms[[1]] |> pmcmc()
 <object of class ‘pmcmcd_pomp’>
@@ -110,12 +105,12 @@ Loading required package: rngtools
 +   as.data.frame() |>
 +   head()
   .L1 time    y1    y2    ess cond.logLik
-1   1    1 -4.05 4.781 122.47       -3.87
-2   1    2  1.83 6.273  51.46       -4.88
-3   1    3 -1.32 7.556  77.08       -4.29
-4   1    4  6.64 5.730   6.06       -7.22
-5   1    5  6.58 1.561  51.60       -4.95
-6   1    6  7.54 0.176  35.35       -5.19
+1   1    1 -4.05 4.781 120.46       -3.90
+2   1    2  1.83 6.273  35.04       -5.12
+3   1    3 -1.32 7.556  65.09       -4.63
+4   1    4  6.64 5.730   7.57       -6.58
+5   1    5  6.58 1.561  73.52       -4.39
+6   1    6  7.54 0.176  37.80       -5.08
 > 
 > pms |>
 +   lapply(as_pomp) |>

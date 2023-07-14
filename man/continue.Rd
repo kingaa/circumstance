@@ -10,15 +10,18 @@
 \usage{
 continue(object, ...)
 
-\S4method{continue}{mif2List}(object, ...)
+\S4method{continue}{mif2List}(object, ..., .options.future = list(seed = TRUE))
 
-\S4method{continue}{pmcmcList}(object, ...)
+\S4method{continue}{pmcmcList}(object, ..., .options.future = list(seed = TRUE))
 }
 \arguments{
 \item{object}{the result of an iterative \pkg{pomp} computation}
 
-\item{\dots}{additional arguments will be passed to the underlying method.
+\item{...}{additional arguments will be passed to the underlying method.
 This allows one to modify parameters used in the original computations.}
+
+\item{.options.future}{list of options for the \pkg{doFuture} backend.
+See \code{\link[doFuture]{\%dofuture\%}} for details.}
 }
 \description{
 Continue an iterative computation where it left off.

@@ -1,5 +1,10 @@
 _N_e_w_s _f_o_r _p_a_c_k_a_g_e '_c_i_r_c_u_m_s_t_a_n_c_e'
 
+_C_h_a_n_g_e_s _i_n '_c_i_r_c_u_m_s_t_a_n_c_e' _v_e_r_s_i_o_n _0._0._9:
+
+        • We use ‘doFuture::%dofuture%’ in preference to
+          ‘foreach::%dopar%’.
+
 _C_h_a_n_g_e_s _i_n '_c_i_r_c_u_m_s_t_a_n_c_e' _v_e_r_s_i_o_n _0._0._8:
 
         • New parallel ‘pmcmc’ methods for parallel particle Markov

@@ -9,15 +9,15 @@
 \alias{mif2,mif2List,missing-method}
 \title{Parallel iterated filtering}
 \usage{
-\S4method{mif2}{ANY,data.frame}(data, starts, ...)
+\S4method{mif2}{ANY,data.frame}(data, starts, ..., .options.future = list(seed = TRUE))
 
 \S4method{mif2}{ANY,missing}(data, starts, ...)
 
-\S4method{mif2}{pompList,missing}(data, starts, ...)
+\S4method{mif2}{pompList,missing}(data, ..., .options.future = list(seed = TRUE))
 
-\S4method{mif2}{pfilterList,missing}(data, starts, ...)
+\S4method{mif2}{pfilterList,missing}(data, ..., .options.future = list(seed = TRUE))
 
-\S4method{mif2}{mif2List,missing}(data, starts, ...)
+\S4method{mif2}{mif2List,missing}(data, ..., .options.future = list(seed = TRUE))
 }
 \arguments{
 \item{data}{passed to \code{\link[pomp:mif2]{pomp::mif2}}}
@@ -25,6 +25,9 @@
 \item{starts}{data frame containing parameters at which to begin iterated filtering}
 
 \item{...}{all additional arguments are passed to \code{\link[pomp:mif2]{pomp::mif2}}}
+
+\item{.options.future}{list of options for the \pkg{doFuture} backend.
+See \code{\link[doFuture]{\%dofuture\%}} for details.}
 }
 \description{
 Runs multiple instances of \code{mif2} using \code{foreach}.

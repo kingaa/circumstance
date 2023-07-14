@@ -1,5 +1,10 @@
 \name{NEWS}
 \title{News for package `circumstance'}
+\section{Changes in \pkg{circumstance} version 0.0.9}{
+  \itemize{
+    \item We use \code{doFuture::\%dofuture\%} in preference to \code{foreach::\%dopar\%}.
+  }
+}
 \section{Changes in \pkg{circumstance} version 0.0.8}{
   \itemize{
     \item New parallel \code{pmcmc} methods for parallel particle Markov chain Monte Carlo.

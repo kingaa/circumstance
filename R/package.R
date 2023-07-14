@@ -15,10 +15,9 @@ NULL
 ## R CMD check regarding the foreach iterator variables
 utils::globalVariables(c("iter_i"))
 
-##' @importFrom foreach getDoParWorkers getDoParName
-get_doPar_info <- function () {
+##' @importFrom future nbrOfWorkers
+get_parinfo <- function () {
   list(
-    name=foreach::getDoParName(),
-    workers=foreach::getDoParWorkers()
+    workers=future::nbrOfWorkers()
   )
 }

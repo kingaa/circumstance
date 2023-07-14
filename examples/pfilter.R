@@ -1,8 +1,5 @@
 library(circumstance)
 library(doFuture)
-library(doRNG)
-registerDoFuture()
-registerDoRNG()
 
 ou2() -> ou2
 
