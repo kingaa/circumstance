@@ -2,17 +2,13 @@
 % Please edit documentation in R/continue.R, R/mif2.R, R/pmcmc.R
 \name{continue}
 \alias{continue}
-\alias{continue,missing-method}
-\alias{continue,ANY-method}
 \alias{continue,mif2List-method}
 \alias{continue,pmcmcList-method}
 \title{Continue an iterative calculation}
 \usage{
-continue(object, ...)
+\S4method{continue}{mif2List}(object, ..., seed = TRUE, chunk.size = NULL, scheduling = 1)
 
-\S4method{continue}{mif2List}(object, ..., .options.future = list(seed = TRUE))
-
-\S4method{continue}{pmcmcList}(object, ..., .options.future = list(seed = TRUE))
+\S4method{continue}{pmcmcList}(object, ..., seed = TRUE, chunk.size = NULL, scheduling = 1)
 }
 \arguments{
 \item{object}{the result of an iterative \pkg{pomp} computation}
@@ -20,8 +16,16 @@ continue(object, ...)
 \item{...}{additional arguments will be passed to the underlying method.
 This allows one to modify parameters used in the original computations.}
 
-\item{.options.future}{list of options for the \pkg{doFuture} backend.
-See \code{\link[doFuture]{\%dofuture\%}} for details.}
+\item{seed}{seed for the parallel random-number generator.
+Setting \code{seed=TRUE} passes the current seed to the parallel RNG.
+See \code{\link[doFuture]{\%dofuture\%}} for more information.}
+
+\item{chunk.size}{average number of elements processed per chunk.
+See \code{\link[doFuture]{\%dofuture\%}} for more information.}
+
+\item{scheduling}{average number of chunks that each worker processes.
+See \code{\link[doFuture]{\%dofuture\%}} for more information.
+This is ignored unless \code{chunk.size=NULL}.}
 }
 \description{
 Continue an iterative computation where it left off.

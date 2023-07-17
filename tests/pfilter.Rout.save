@@ -37,7 +37,7 @@ Attaching package: ‘circumstance’
 
 The following objects are masked from ‘package:pomp’:
 
-    continue, mif2, pfilter, pmcmc
+    mif2, pfilter, pmcmc
 
 > library(tidyr)
 > library(dplyr)
@@ -83,7 +83,7 @@ Loading required package: future
 > ou2 |>
 +   pfilter(Np=1000) |>
 +   logLik()
-[1] -479
+[1] -477
 > 
 > pfs |>
 +   lapply(simulate) |>

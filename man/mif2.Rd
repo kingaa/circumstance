@@ -9,15 +9,15 @@
 \alias{mif2,mif2List,missing-method}
 \title{Parallel iterated filtering}
 \usage{
-\S4method{mif2}{ANY,data.frame}(data, starts, ..., .options.future = list(seed = TRUE))
+\S4method{mif2}{ANY,data.frame}(data, starts, ..., seed = TRUE, chunk.size = NULL, scheduling = 1)
 
-\S4method{mif2}{ANY,missing}(data, starts, ...)
+\S4method{mif2}{ANY,missing}(data, ..., seed = TRUE, chunk.size = NULL, scheduling = 1)
 
-\S4method{mif2}{pompList,missing}(data, ..., .options.future = list(seed = TRUE))
+\S4method{mif2}{pompList,missing}(data, ..., seed = TRUE, chunk.size = NULL, scheduling = 1)
 
-\S4method{mif2}{pfilterList,missing}(data, ..., .options.future = list(seed = TRUE))
+\S4method{mif2}{pfilterList,missing}(data, ..., seed = TRUE, chunk.size = NULL, scheduling = 1)
 
-\S4method{mif2}{mif2List,missing}(data, ..., .options.future = list(seed = TRUE))
+\S4method{mif2}{mif2List,missing}(data, ..., seed = TRUE, chunk.size = NULL, scheduling = 1)
 }
 \arguments{
 \item{data}{passed to \code{\link[pomp:mif2]{pomp::mif2}}}
@@ -26,8 +26,16 @@
 
 \item{...}{all additional arguments are passed to \code{\link[pomp:mif2]{pomp::mif2}}}
 
-\item{.options.future}{list of options for the \pkg{doFuture} backend.
-See \code{\link[doFuture]{\%dofuture\%}} for details.}
+\item{seed}{seed for the parallel random-number generator.
+Setting \code{seed=TRUE} passes the current seed to the parallel RNG.
+See \code{\link[doFuture]{\%dofuture\%}} for more information.}
+
+\item{chunk.size}{average number of elements processed per chunk.
+See \code{\link[doFuture]{\%dofuture\%}} for more information.}
+
+\item{scheduling}{average number of chunks that each worker processes.
+See \code{\link[doFuture]{\%dofuture\%}} for more information.
+This is ignored unless \code{chunk.size=NULL}.}
 }
 \description{
 Runs multiple instances of \code{mif2} using \code{foreach}.

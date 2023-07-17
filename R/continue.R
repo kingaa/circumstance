@@ -3,7 +3,7 @@
 ##' Continue an iterative computation where it left off.
 ##'
 ##' @name continue
-##' @aliases continue,missing-method continue,ANY-method
+##' @importFrom pomp continue
 ##' @include package.R
 ##' @rdname continue
 ##' @param object the result of an iterative \pkg{pomp} computation
@@ -13,27 +13,8 @@
 ##' @seealso \code{\link{mif2}}
 NULL
 
-##' @name continue
-##' @rdname continue
-##' @export
 setGeneric(
   "continue",
   function (object, ...)
     standardGeneric("continue")
-)
-
-setMethod(
-  "continue",
-  signature=signature(object="missing"),
-  definition=function (...) {
-    reqd_arg("continue","object")
-  }
-)
-
-setMethod(
-  "continue",
-  signature=signature(object="ANY"),
-  definition=function (object, ...) {
-    undef_method("continue",object)
-  }
 )

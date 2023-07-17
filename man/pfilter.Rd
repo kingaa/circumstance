@@ -8,11 +8,11 @@
 \alias{pfilter,pompList,missing-method}
 \title{Parallel particle filter computations}
 \usage{
-\S4method{pfilter}{ANY,numeric}(data, Nrep, ..., .options.future = list(seed = TRUE))
+\S4method{pfilter}{ANY,numeric}(data, Nrep, ..., seed = TRUE, chunk.size = NULL, scheduling = 1)
 
-\S4method{pfilter}{ANY,missing}(data, Nrep, ...)
+\S4method{pfilter}{ANY,missing}(data, ..., seed = TRUE, chunk.size = NULL, scheduling = 1)
 
-\S4method{pfilter}{pompList,numeric}(data, Nrep, ..., .options.future = list(seed = TRUE))
+\S4method{pfilter}{pompList,numeric}(data, Nrep, ..., seed = TRUE, chunk.size = NULL, scheduling = 1)
 
 \S4method{pfilter}{pompList,missing}(data, Nrep, ...)
 }
@@ -24,8 +24,16 @@ By default, \code{Nrep = 1}.}
 
 \item{...}{all additional arguments are passed to \code{\link[pomp:pfilter]{pomp::pfilter}}}
 
-\item{.options.future}{list of options for the \pkg{doFuture} backend.
-See \code{\link[doFuture]{\%dofuture\%}} for details.}
+\item{seed}{seed for the parallel random-number generator.
+Setting \code{seed=TRUE} passes the current seed to the parallel RNG.
+See \code{\link[doFuture]{\%dofuture\%}} for more information.}
+
+\item{chunk.size}{average number of elements processed per chunk.
+See \code{\link[doFuture]{\%dofuture\%}} for more information.}
+
+\item{scheduling}{average number of chunks that each worker processes.
+See \code{\link[doFuture]{\%dofuture\%}} for more information.
+This is ignored unless \code{chunk.size=NULL}.}
 }
 \description{
 Runs multiple instances of \code{pfilter} using \code{foreach}.

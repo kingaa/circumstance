@@ -1,5 +1,10 @@
 \name{NEWS}
 \title{News for package `circumstance'}
+\section{Changes in \pkg{circumstance} version 0.0.10}{
+  \itemize{
+    \item Changes to make it easier to pass \code{doFuture} options.
+  }
+}
 \section{Changes in \pkg{circumstance} version 0.0.9}{
   \itemize{
     \item We use \code{doFuture::\%dofuture\%} in preference to \code{foreach::\%dopar\%}.

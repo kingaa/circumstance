@@ -45,7 +45,7 @@ Attaching package: ‘circumstance’
 
 The following objects are masked from ‘package:pomp’:
 
-    continue, mif2, pfilter, pmcmc
+    mif2, pfilter, pmcmc
 
 > set.seed(364685970)
 > 

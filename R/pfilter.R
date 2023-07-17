@@ -12,8 +12,14 @@
 ##' @param Nrep number of replicate particle filter computations to run.
 ##' By default, \code{Nrep = 1}.
 ##' @param ... all additional arguments are passed to \code{\link[pomp:pfilter]{pomp::pfilter}}
-##' @param .options.future list of options for the \pkg{doFuture} backend.
-##' See \code{\link[doFuture]{\%dofuture\%}} for details.
+##' @param seed seed for the parallel random-number generator.
+##' Setting \code{seed=TRUE} passes the current seed to the parallel RNG.
+##' See \code{\link[doFuture]{\%dofuture\%}} for more information.
+##' @param chunk.size average number of elements processed per chunk.
+##' See \code{\link[doFuture]{\%dofuture\%}} for more information.
+##' @param scheduling average number of chunks that each worker processes.
+##' See \code{\link[doFuture]{\%dofuture\%}} for more information.
+##' This is ignored unless \code{chunk.size=NULL}.
 ##' @seealso \code{\link[pomp:pfilter]{pomp::pfilter}}.
 ##'
 ##' @example examples/pfilter.R
@@ -32,10 +38,16 @@ setMethod(
   "pfilter",
   signature=signature(data = "ANY", Nrep = "numeric"),
   definition = function (data, Nrep, ...,
-    .options.future = list(seed = TRUE)
+    seed = TRUE, chunk.size = NULL, scheduling = 1
   ) {
-    foreach (seq_len(Nrep),.combine=c,
-      .options.future=.options.future
+    foreach (
+      seq_len(Nrep),
+      .combine=c,
+      .options.future=list(
+        seed=seed,
+        chunk.size=chunk.size,
+        scheduling=scheduling
+      )
     ) %dofuture% {
       pomp::pfilter(data,...)
     } -> res
@@ -50,8 +62,20 @@ setMethod(
 setMethod(
   "pfilter",
   signature=signature(data = "ANY", Nrep = "missing"),
-  definition = function (data, ...) {
-    pomp::pfilter(data,...)
+  definition = function (data, ...,
+    seed = TRUE, chunk.size = NULL, scheduling = 1
+  ) {
+    foreach(
+      1L,
+      .options.future=list(
+        seed=seed,
+        chunk.size=chunk.size,
+        scheduling=scheduling
+      )
+    ) %dofuture% {
+      pomp::pfilter(data,...)
+    } -> res
+    res[[1L]]
   }
 )
 
@@ -61,14 +85,18 @@ setMethod(
   "pfilter",
   signature=signature(data = "pompList", Nrep = "numeric"),
   definition = function (data, Nrep, ...,
-    .options.future = list(seed = TRUE)
+    seed = TRUE, chunk.size = NULL, scheduling = 1
   ) {
     npo <- length(data)
     njobs <- Nrep*npo
     foreach (
       iter_i=seq_len(njobs),
       .combine=c,
-      .options.future=.options.future
+      .options.future=list(
+        seed=seed,
+        chunk.size=chunk.size,
+        scheduling=scheduling
+      )
     ) %dofuture% {
       ipo <- (iter_i-1)%%npo+1
       rep <- (iter_i-1)%/%npo+1

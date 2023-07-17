@@ -7,7 +7,7 @@
 ##' @importFrom pomp mif2
 ##' @importFrom foreach foreach
 ##' @importFrom doFuture %dofuture%
-##' @include pfilter.R
+##' @include pfilter.R continue.R
 ##' @param data passed to \code{\link[pomp:mif2]{pomp::mif2}}
 ##' @param starts data frame containing parameters at which to begin iterated filtering
 ##' @param ... all additional arguments are passed to \code{\link[pomp:mif2]{pomp::mif2}}
@@ -22,24 +22,22 @@ setGeneric(
     standardGeneric("mif2")
 )
 
-setGeneric(
-  "continue",
-  function (object, ...)
-    standardGeneric("continue")
-)
-
 ##' @rdname mif2
 ##' @export
 setMethod(
   "mif2",
   signature=signature(data = "ANY", starts = "data.frame"),
   definition = function (data, starts, ...,
-    .options.future = list(seed = TRUE)
+    seed = TRUE, chunk.size = NULL, scheduling = 1
   ) {
     foreach (
       iter_i=seq_len(nrow(starts)),
       .combine=c,
-      .options.future=.options.future
+      .options.future=list(
+        seed=seed,
+        chunk.size=chunk.size,
+        scheduling=scheduling
+      )
     ) %dofuture% {
       pomp::mif2(data,params=starts[iter_i,],...)
     } -> res
@@ -54,8 +52,20 @@ setMethod(
 setMethod(
   "mif2",
   signature=signature(data = "ANY", starts = "missing"),
-  definition = function (data, ...) {
-    pomp::mif2(data,...)
+  definition = function (data, ...,
+    seed = TRUE, chunk.size = NULL, scheduling = 1
+  ) {
+    foreach (
+      1L,
+      .options.future=list(
+        seed=seed,
+        chunk.size=chunk.size,
+        scheduling=scheduling
+      )
+    ) %dofuture% {
+      pomp::mif2(data,...)
+    } -> res
+    res[[1L]]
   }
 )
 
@@ -65,12 +75,16 @@ setMethod(
   "mif2",
   signature=signature(data = "pompList", starts = "missing"),
   definition = function (data, ...,
-    .options.future = list(seed = TRUE)
+    seed = TRUE, chunk.size = NULL, scheduling = 1
   ) {
     foreach (
       iter_i=seq_along(data),
       .combine=c,
-      .options.future=.options.future
+      .options.future=list(
+        seed=seed,
+        chunk.size=chunk.size,
+        scheduling=scheduling
+      )
     ) %dofuture% {
       pomp::mif2(data[[iter_i]],...)
     } -> res
@@ -86,12 +100,16 @@ setMethod(
   "mif2",
   signature=signature(data = "pfilterList", starts = "missing"),
   definition = function (data, ...,
-    .options.future = list(seed = TRUE)
+    seed = TRUE, chunk.size = NULL, scheduling = 1
   ) {
     foreach (
       iter_i=seq_along(data),
       .combine=c,
-      .options.future=.options.future
+      .options.future=list(
+        seed=seed,
+        chunk.size=chunk.size,
+        scheduling=scheduling
+      )
     ) %dofuture% {
       pomp::mif2(data[[iter_i]],...)
     } -> res
@@ -107,12 +125,16 @@ setMethod(
   "mif2",
   signature=signature(data = "mif2List", starts = "missing"),
   definition = function (data, ...,
-    .options.future = list(seed = TRUE)
+    seed = TRUE, chunk.size = NULL, scheduling = 1
   ) {
     foreach (
       iter_i=seq_along(data),
       .combine=c,
-      .options.future=.options.future
+      .options.future=list(
+        seed=seed,
+        chunk.size=chunk.size,
+        scheduling=scheduling
+      )
     ) %dofuture% {
       pomp::mif2(data[[iter_i]],...)
     } -> res
@@ -128,12 +150,16 @@ setMethod(
   "continue",
   signature=signature(object = "mif2List"),
   definition = function (object, ...,
-    .options.future = list(seed = TRUE)
+    seed = TRUE, chunk.size = NULL, scheduling = 1
   ) {
     foreach (
       iter_i=seq_along(object),
       .combine=c,
-      .options.future=.options.future
+      .options.future=list(
+        seed=seed,
+        chunk.size=chunk.size,
+        scheduling=scheduling
+      )
     ) %dofuture% {
       pomp::continue(object[[iter_i]],...)
     } -> res
