@@ -2,9 +2,22 @@
 % Please edit documentation in R/package.R
 \docType{package}
 \name{circumstance-package}
+\alias{circumstance}
 \alias{circumstance-package}
 \alias{circumstance,package}
 \title{circumstance package}
 \description{
 \pkg{circumstance} provides tools for parallelizing certain \pkg{pomp} calculations.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://kingaa.github.io/circumstance/}
+  \item Report bugs at \url{https://github.com/kingaa/circumstance/issues/}
+}
+
+}
+\author{
+\strong{Maintainer}: Aaron A. King \email{kingaa@umich.edu}
+
 }

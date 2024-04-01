@@ -1,6 +1,6 @@
 
-R version 4.3.1 (2023-06-16) -- "Beagle Scouts"
-Copyright (C) 2023 The R Foundation for Statistical Computing
+R version 4.3.3 (2024-02-29) -- "Angel Food Cake"
+Copyright (C) 2024 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -32,14 +32,6 @@ The following objects are masked from ‘package:base’:
 > library(grid)
 > library(circumstance)
 Loading required package: pomp
-
-Welcome to pomp!
-
-As of version 4.6, no user-visible pomp function has a name that
-includes a dot ('.'). Function names have been changed to replace the
-dot with an underscore ('_'). For more information, see the pomp blog:
-https://kingaa.github.io/pomp/blog.html.
-
 
 Attaching package: ‘circumstance’
 
