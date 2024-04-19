@@ -1,4 +1,5 @@
 examples
+rchk
 repo
 revdep
 scripts
@@ -16,13 +17,15 @@ inst/doc/(.+?).Rmd
 man/roxygen
 Doxyfile
 LICENSE\.md$
-README\.(.?)$
+README\.md$
 CRAN\.md$
 TODO\.md$
+BUILD\.md$
 ^\.gitignore$
 \.github
 ^\.travis\.yml$
 ^codecov\.yml$
+^rchk\.out$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 \.Rprofile

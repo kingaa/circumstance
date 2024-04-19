@@ -22,9 +22,8 @@ INSTDOCS = $(sort $(wildcard inst/doc/*))
 SESSION_PKGS = datasets,utils,grDevices,graphics,stats,methods,tidyverse,doFuture,doRNG,$(PKG)
 
 .PHONY: .check check clean covr debug default fresh \
-htmlhelp manual publish qcheck qqcheck \
-revdeps rhub rsession session www win wind xcheck \
-xcovr vcheck ycheck
+htmlhelp manual publish qcheck qqcheck rchk revdeps \
+rhub rsession session www win wind xcheck xcovr vcheck ycheck
 
 .dist manual www: export R_QPDF=qpdf
 .headers: export LC_COLLATE=C
@@ -68,7 +67,7 @@ INSTALLCMD = devtools::install(args=c("--preclean","--html","--library=library")
 
 check xcheck ycheck qcheck qqcheck: .check
 
-vcheck: check
+vcheck: check 
 	$(REXE) -d "valgrind -s --tool=memcheck --track-origins=yes --leak-check=full"\
 	< check/$(PKG).Rcheck/$(PKG)-Ex.R 2>&1 | tee $(PKG)-Ex.Rout
 
@@ -128,6 +127,13 @@ www: install
 	$(MAKE)	-C www
 
 session debug rsession: .session
+
+rchk: .rchk
+
+.rchk: .dist
+	mkdir -p rchk
+	$(CP) $(TARBALL) rchk
+	docker run -v $(PWD)/rchk:/rchk/packages kalibera/rchk:latest /rchk/packages/$(TARBALL) | tee rchk.out
 
 revdeps: .dist
 	mkdir -p revdep
@@ -222,4 +228,4 @@ clean:
 fresh: clean
 	$(RM) .headers .includes .NEWS .instdocs
 	$(RM) .install .roxy .source .testsource .roxy .tests
-	$(RM) -r library
+	$(RM) -r library rchk
