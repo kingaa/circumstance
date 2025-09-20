@@ -1,1 +1,2 @@
 - Smoothing tool for 'pfilterd_pomp' and 'pmcmcd_pomp' objects
+- Better handling of replicated `pfilter()` operations on a `pompList` (see [Issue #1](https://github.com/kingaa/circumstance/issues/1)).

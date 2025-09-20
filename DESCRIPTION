@@ -18,7 +18,7 @@ BugReports: https://github.com/kingaa/circumstance/issues/
 Contact: kingaa at umich dot edu
 Encoding: UTF-8
 Roxygen: list(roclets = c("collate", "namespace", "rd"))
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 Collate: 
     'package.R'
     'continue.R'
